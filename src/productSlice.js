@@ -1,30 +1,43 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { fetchAllProducts } from 'C:/Users/sakib/OneDrive/Desktop/coding/my-app/src/productlistAPI.js';
 
 const initialState = {
-  value: 0,
-}
+  products: [],
+  status: 'idle',
+};
 
-export const counterSlice = createSlice({
-  name: 'counter',
+export const fetchAsync = createAsyncThunk(
+  'product/fetchAllProducts',
+  async () => {
+    const response = await fetchAllProducts();
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
+export const productSlice = createSlice({
+  name: 'product',
   initialState,
   reducers: {
     increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
-    },
-    decrement: (state) => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
+      state.value += 1;
     },
   },
-})
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchAsync.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchAsync.fulfilled, (state, action) => {
+  console.log("Fetched products:", action.payload);
+  state.status = 'idle';
+  state.products = action.payload;
+});
+  },
+});
 
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const { increment } = productSlice.actions;
 
-export default counterSlice.reducer
+export const selectAllProducts = (state) => state.product.products;
+
+export default productSlice.reducer;
