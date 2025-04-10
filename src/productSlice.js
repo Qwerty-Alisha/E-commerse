@@ -1,15 +1,24 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchAllProducts } from 'C:/Users/sakib/OneDrive/Desktop/coding/my-app/src/productlistAPI.js';
+import { fetchAllProducts, fetchProductbyFilters } from 'C:/Users/sakib/OneDrive/Desktop/coding/my-app/src/productlistAPI.js';
 
 const initialState = {
   products: [],
   status: 'idle',
 };
 
-export const fetchAsync = createAsyncThunk(
+export const fetchAllProductsAsync = createAsyncThunk(
   'product/fetchAllProducts',
   async () => {
     const response = await fetchAllProducts();
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
+export const fetchProductbyFiltersAsync = createAsyncThunk(
+  'product/fetchProductbyFilters',
+  async (filter) => {
+    const response = await fetchProductbyFilters(filter);
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
@@ -25,14 +34,21 @@ export const productSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAsync.pending, (state) => {
+      .addCase(fetchAllProductsAsync.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchAsync.fulfilled, (state, action) => {
-  console.log("Fetched products:", action.payload);
+      .addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
   state.status = 'idle';
   state.products = action.payload;
-});
+})
+.addCase(fetchProductbyFiltersAsync.pending, (state) => {
+  state.status = 'loading';
+})
+.addCase(fetchProductbyFiltersAsync.fulfilled, (state, action) => {
+console.log("Fetched products:", action.payload);
+state.status = 'idle';
+state.products = action.payload;
+})
   },
 });
 
