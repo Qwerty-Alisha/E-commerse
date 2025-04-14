@@ -6,6 +6,7 @@ import CartPage from './pages/cartPage.js'
 import Details from './pages/ProdDetaisPage.js'
 import * as React from "react";
 import { createRoot } from "react-dom/client";
+
 import {
   createBrowserRouter,
   RouterProvider,

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchAllProductsAsync, fetchProductbyFiltersAsync } from './productSlice'
+import { fetchAllProductsAsync, fetchProductsByFiltersAsync } from './productSlice'
 import { Menu, MenuButton, MenuItems, MenuItem, Dialog, DialogPanel, DialogBackdrop, Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon, FunnelIcon, Squares2X2Icon, XMarkIcon, PlusIcon, MinusIcon, StarIcon } from '@heroicons/react/20/solid'
 import { Link } from 'react-router-dom'
@@ -215,6 +215,7 @@ export default function Example() {
   const dispatch = useDispatch()
   const products = useSelector((state) => state.product.products)
   const [filter, setFilter] = useState({})
+  const [sort, setSort] = useState({})
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
   const sortOptions = [
@@ -268,19 +269,36 @@ export default function Example() {
   ]
 
   useEffect(() => {
-    dispatch(fetchAllProductsAsync())
-  }, [dispatch])
+    dispatch(fetchProductsByFiltersAsync({filter,sort}))
+  }, [dispatch, filter, sort])
 
   const handleFilter = (e, section, option) => {
-    const newFilter = { ...filter, [section.id]: option.value }
-    setFilter(newFilter)
-    dispatch(fetchProductbyFiltersAsync(newFilter))
-  }
+    const newFilter = { ...filter };
+    
+    if (e.target.checked) {
+      if (newFilter[section.id]) {
+        newFilter[section.id].push(option.value);
+      } else {
+        newFilter[section.id] = [option.value];
+      }
+    } else {
+      newFilter[section.id] = newFilter[section.id].filter(
+        (val) => val !== option.value
+      );
+      if (newFilter[section.id].length === 0) {
+        delete newFilter[section.id];
+      }
+    }
+  
+    setFilter(newFilter); // only update filter state
+    // dispatch will be triggered from useEffect
+  };
+  
 
   const handleSort = (e, option) => {
-    const newFilter = { ...filter, _sort: option.sort, _order: option.order }
-    setFilter(newFilter)
-    dispatch(fetchProductbyFiltersAsync(newFilter))
+    const sort = { _sort: option.sort, _order: option.order }
+    setSort(sort)
+    dispatch(fetchProductsByFiltersAsync(sort))
   }
 
   return (
