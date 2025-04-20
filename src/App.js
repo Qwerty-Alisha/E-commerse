@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage.js'
 import SignupPage from './pages/SignupPage.js'
 import CartPage from './pages/cartPage.js'
 import Details from './pages/ProdDetaisPage.js'
+import Protected from './featues/auth/protected.js';
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
   },
   {
   path: "/cart",
-  element: (<CartPage></CartPage>),
+  element: (<Protected><CartPage></CartPage></Protected>),
 },
   {
     path: "/Login",
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
   {
     path: "/ProdDetails/:id",
     element: (
-      <Details></Details>
+      <Protected><Details></Details></Protected>
     ),
   },
 ]);
