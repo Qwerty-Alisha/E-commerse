@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, incrementAsync, selectError, selectLoggedInUser,checkUserAsync } from './authSlice';
+import { increment, incrementAsync, selectError, selectLoggedInUser, checkUserAsync  } from './authSlice';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -40,8 +40,7 @@ export default function Login() {
               );
             })}
             className="space-y-6"
-            action="#"
-            method="POST"
+    
           >
             <div>
               <label

@@ -1,3 +1,6 @@
+
+
+
 import './App.css';
 import Home from './pages/home.js'
 import LoginPage from './pages/LoginPage.js'
@@ -7,18 +10,32 @@ import Details from './pages/ProdDetaisPage.js'
 import Protected from './featues/auth/protected.js';
 import Cart from './featues/cart/cart';
 import cart_page from './pages/cartPage';
+import Checkout from './pages/checkout';
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { fetchItemsByUserIdAsync } from './featues/cart/cartSlice';
+
+
 
 import {
   createBrowserRouter,
   RouterProvider,
   Route,
   Link,
-} from "react-router-dom";
+} from 'react-router-dom';
 
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLoggedInUser } from './featues/auth/authSlice';
 const router = createBrowserRouter([
+  {
+    path: '/checkout',
+    element: (
+      <Protected>
+        <Checkout></Checkout>
+      </Protected>
+    ),
+  },
   {
     path: "/",
     element: (
@@ -44,11 +61,23 @@ const router = createBrowserRouter([
     ),
   },
 ]);
+
 function App() {
+
+  const dispatch = useDispatch();
+  const user = useSelector(selectLoggedInUser);
+
+  useEffect(()=>{
+    if(user){
+      dispatch(fetchItemsByUserIdAsync(user.id))
+    }
+  },[dispatch, user])
+
   return (
-    <>
-    <RouterProvider router={router} />
-    </>
+    <div className="App">
+      <RouterProvider router={router} />
+    </div>
   );
 }
+
 export default App;

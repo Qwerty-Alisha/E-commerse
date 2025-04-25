@@ -8,6 +8,7 @@ import {
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -30,6 +31,8 @@ export default function Cart() {
 
   return (
     <>
+      {!items.length && <Navigate to='/' replace={true}></Navigate>}
+
       <div>
         <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
@@ -42,7 +45,7 @@ export default function Cart() {
                   <li key={item.id} className="flex py-6">
                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                       <img
-                        src={item.image? item.image : item.thumbnail}
+                        src={item.thumbnail? item.thumbnail : item.image}
                         alt={item.title}
                         className="h-full w-full object-cover object-center"
                       />
