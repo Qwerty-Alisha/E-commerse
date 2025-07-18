@@ -11,6 +11,10 @@ import Protected from './featues/auth/protected.js';
 import Cart from './featues/cart/cart';
 import cart_page from './pages/cartPage';
 import Checkout from './pages/checkout';
+import PageNotFound from './pages/404';
+import OrderSuccessPage from './pages/OrderSuccessPage';
+import UserOrders from './featues/user/components/UserOrders';
+import UserOrdersPage from './pages/UserOrdersPage';
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { fetchItemsByUserIdAsync } from './featues/cart/cartSlice';
@@ -58,6 +62,25 @@ const router = createBrowserRouter([
     path: "/ProdDetails/:id",
     element: (
       <Protected><Details></Details></Protected>
+    ),
+  },
+   {
+    path: '/order-success/:id',
+    element: (
+      <OrderSuccessPage></OrderSuccessPage>
+    ),
+  },
+  {
+    path: '/orders',
+    element: (
+      <UserOrdersPage></UserOrdersPage>
+      // we will add Page later right now using component directly.
+    ),
+  },
+  {
+    path: '*',
+    element: (
+      <PageNotFound></PageNotFound>
     ),
   },
 ]);

@@ -5186,6 +5186,7 @@
   "users": [
     {
       "email": "ay60sha@gmail.com",
+      "password": "Qwerty123",
       "addresses": [
         {
           "name": "Alisha ",
@@ -5197,222 +5198,30 @@
           "pinCode": "110008"
         }
       ],
-      "password": "Qwerty123",
       "id": 1
     },
     {
       "email": "sakibkhan96436@gmail.com",
-      "password": "Sakib1234",
-      "addresses": [],
+      "password": "Qwerty123",
+      "addresses": [
+        {
+          "name": "Saqib",
+          "email": "sakibkhan96436@gmail.com",
+          "phone": "9212805522",
+          "street": "munshi bagh",
+          "city": "delhi",
+          "state": "delhi",
+          "pinCode": "110008"
+        }
+      ],
       "id": 2
     }
   ],
-  "cart": [
-    {
-      "id": 7,
-      "title": "White Gold Plated Princess",
-      "price": 9.99,
-      "description": "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
-      "category": "jewelery",
-      "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
-      "rating": 3,
-      "quantity": 1,
-      "user": 1
-    },
-    {
-      "id": 26,
-      "title": "Green Chili Pepper",
-      "description": "Spicy green chili pepper, ideal for adding heat to your favorite recipes.",
-      "category": "groceries",
-      "price": 0.99,
-      "discountPercentage": 18.51,
-      "rating": 4.43,
-      "stock": 8,
-      "tags": [
-        "vegetables"
-      ],
-      "sku": "Y4RM3JCB",
-      "weight": 2,
-      "dimensions": {
-        "width": 18.67,
-        "height": 21.17,
-        "depth": 25.26
-      },
-      "warrantyInformation": "No warranty",
-      "shippingInformation": "Ships in 1-2 business days",
-      "availabilityStatus": "In Stock",
-      "reviews": [
-        {
-          "rating": 2,
-          "comment": "Disappointing product!",
-          "date": "2024-05-23T08:56:21.620Z",
-          "reviewerName": "Mateo Bennett",
-          "reviewerEmail": "mateo.bennett@x.dummyjson.com"
-        },
-        {
-          "rating": 5,
-          "comment": "Very pleased!",
-          "date": "2024-05-23T08:56:21.620Z",
-          "reviewerName": "Natalie Price",
-          "reviewerEmail": "natalie.price@x.dummyjson.com"
-        },
-        {
-          "rating": 4,
-          "comment": "Very satisfied!",
-          "date": "2024-05-23T08:56:21.620Z",
-          "reviewerName": "Avery Barnes",
-          "reviewerEmail": "avery.barnes@x.dummyjson.com"
-        }
-      ],
-      "returnPolicy": "30 days return policy",
-      "minimumOrderQuantity": 43,
-      "meta": {
-        "createdAt": "2024-05-23T08:56:21.620Z",
-        "updatedAt": "2024-05-23T08:56:21.620Z",
-        "barcode": "8400326844874",
-        "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
-      },
-      "images": [
-        "https://cdn.dummyjson.com/products/images/groceries/Green%20Chili%20Pepper/1.png",
-        "https://cdn.dummyjson.com/products/images/groceries/Green%20Chili%20Pepper/1.png"
-      ],
-      "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Green%20Chili%20Pepper/thumbnail.png",
-      "quantity": 1,
-      "user": 1
-    },
-    {
-      "id": 1,
-      "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-      "price": 109.95,
-      "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-      "category": "men's clothing",
-      "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-      "rating": 3.9,
-      "quantity": 1,
-      "user": 1
-    },
-    {
-      "id": 3,
-      "title": "Mens Cotton Jacket",
-      "price": 55.99,
-      "description": "great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.",
-      "category": "men's clothing",
-      "image": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
-      "rating": 4.7,
-      "quantity": 1,
-      "user": 1
-    },
-    {
-      "id": 2,
-      "title": "Mens Casual Premium Slim Fit T-Shirts ",
-      "price": 22.3,
-      "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
-      "category": "men's clothing",
-      "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
-      "rating": 4.1,
-      "quantity": 1,
-      "user": 2
-    },
-    {
-      "title": "Mens Casual Premium Slim Fit T-Shirts ",
-      "price": 22.3,
-      "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
-      "category": "men's clothing",
-      "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
-      "rating": 4.1,
-      "quantity": 1,
-      "user": 1,
-      "id": 27
-    }
-  ],
+  "cart": [],
   "orders": [
     {
       "items": [
         {
-          "id": 7,
-          "title": "White Gold Plated Princess",
-          "price": 9.99,
-          "description": "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
-          "category": "jewelery",
-          "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
-          "rating": 3,
-          "quantity": 1,
-          "user": 1
-        },
-        {
-          "id": 26,
-          "title": "Green Chili Pepper",
-          "description": "Spicy green chili pepper, ideal for adding heat to your favorite recipes.",
-          "category": "groceries",
-          "price": 0.99,
-          "discountPercentage": 18.51,
-          "rating": 4.43,
-          "stock": 8,
-          "tags": [
-            "vegetables"
-          ],
-          "sku": "Y4RM3JCB",
-          "weight": 2,
-          "dimensions": {
-            "width": 18.67,
-            "height": 21.17,
-            "depth": 25.26
-          },
-          "warrantyInformation": "No warranty",
-          "shippingInformation": "Ships in 1-2 business days",
-          "availabilityStatus": "In Stock",
-          "reviews": [
-            {
-              "rating": 2,
-              "comment": "Disappointing product!",
-              "date": "2024-05-23T08:56:21.620Z",
-              "reviewerName": "Mateo Bennett",
-              "reviewerEmail": "mateo.bennett@x.dummyjson.com"
-            },
-            {
-              "rating": 5,
-              "comment": "Very pleased!",
-              "date": "2024-05-23T08:56:21.620Z",
-              "reviewerName": "Natalie Price",
-              "reviewerEmail": "natalie.price@x.dummyjson.com"
-            },
-            {
-              "rating": 4,
-              "comment": "Very satisfied!",
-              "date": "2024-05-23T08:56:21.620Z",
-              "reviewerName": "Avery Barnes",
-              "reviewerEmail": "avery.barnes@x.dummyjson.com"
-            }
-          ],
-          "returnPolicy": "30 days return policy",
-          "minimumOrderQuantity": 43,
-          "meta": {
-            "createdAt": "2024-05-23T08:56:21.620Z",
-            "updatedAt": "2024-05-23T08:56:21.620Z",
-            "barcode": "8400326844874",
-            "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
-          },
-          "images": [
-            "https://cdn.dummyjson.com/products/images/groceries/Green%20Chili%20Pepper/1.png",
-            "https://cdn.dummyjson.com/products/images/groceries/Green%20Chili%20Pepper/1.png"
-          ],
-          "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Green%20Chili%20Pepper/thumbnail.png",
-          "quantity": 1,
-          "user": 1
-        },
-        {
-          "id": 1,
-          "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-          "price": 109.95,
-          "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-          "category": "men's clothing",
-          "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-          "rating": 3.9,
-          "quantity": 1,
-          "user": 1
-        },
-        {
-          "id": 3,
           "title": "Mens Cotton Jacket",
           "price": 55.99,
           "description": "great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.",
@@ -5420,24 +5229,15 @@
           "image": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
           "rating": 4.7,
           "quantity": 1,
-          "user": 1
-        },
-        {
-          "title": "Mens Casual Premium Slim Fit T-Shirts ",
-          "price": 22.3,
-          "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
-          "category": "men's clothing",
-          "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
-          "rating": 4.1,
-          "quantity": 1,
           "user": 1,
-          "id": 27
+          "id": 1
         }
       ],
-      "totalAmount": 199.22000000000003,
-      "totalItems": 5,
+      "totalAmount": 55.99,
+      "totalItems": 1,
       "user": {
         "email": "ay60sha@gmail.com",
+        "password": "Qwerty123",
         "addresses": [
           {
             "name": "Alisha ",
@@ -5449,7 +5249,6 @@
             "pinCode": "110008"
           }
         ],
-        "password": "Qwerty123",
         "id": 1
       },
       "paymentMethod": "cash",
@@ -5462,6 +5261,52 @@
         "state": "delhi",
         "pinCode": "110008"
       },
+      "status": "pending",
+      "id": 1
+    },
+    {
+      "items": [
+        {
+          "title": "White Gold Plated Princess",
+          "price": 9.99,
+          "description": "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
+          "category": "jewelery",
+          "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
+          "rating": 3,
+          "quantity": 1,
+          "user": 2,
+          "id": 1
+        }
+      ],
+      "totalAmount": 9.99,
+      "totalItems": 1,
+      "user": {
+        "email": "sakibkhan96436@gmail.com",
+        "password": "Qwerty123",
+        "addresses": [
+          {
+            "name": "Saqib",
+            "email": "sakibkhan96436@gmail.com",
+            "phone": "9212805522",
+            "street": "munshi bagh",
+            "city": "delhi",
+            "state": "delhi",
+            "pinCode": "110008"
+          }
+        ],
+        "id": 2
+      },
+      "paymentMethod": "cash",
+      "selectedAddress": {
+        "name": "Saqib",
+        "email": "sakibkhan96436@gmail.com",
+        "phone": "9212805522",
+        "street": "munshi bagh",
+        "city": "delhi",
+        "state": "delhi",
+        "pinCode": "110008"
+      },
+      "status": "pending",
       "id": 1
     }
   ]
