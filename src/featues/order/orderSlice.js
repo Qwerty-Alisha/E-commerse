@@ -7,14 +7,30 @@ const initialState = {
   currentOrder: null,
 };
 
+// export const createOrderAsync = createAsyncThunk(
+//   'order/createOrder',
+//   async (order) => {
+//     const response = await createOrder(order);
+//     // The value we return becomes the `fulfilled` action payload
+//     return response.data;
+//   }
+// );
 export const createOrderAsync = createAsyncThunk(
   'order/createOrder',
   async (order) => {
-    const response = await createOrder(order);
-    // The value we return becomes the `fulfilled` action payload
+    const serialNumber = generateOrderSerial();
+    const orderPlacedAt = new Date().toLocaleString();;
+    const response = await createOrder({ ...order, serialNumber, orderPlacedAt });
     return response.data;
   }
 );
+
+function generateOrderSerial() {
+  const prefix = 'ORD';
+  const timestamp = Date.now();
+  const random = Math.floor(1000 + Math.random() * 9000);
+  return `${prefix}-${timestamp}-${random}`;
+}
 
 export const orderSlice = createSlice({
   name: 'order',

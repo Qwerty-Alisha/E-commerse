@@ -17,11 +17,12 @@ import { createOrderAsync, selectCurrentOrder } from '../featues/order/orderSlic
 function Checkout() {
   const dispatch = useDispatch();
   const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  register,
+  handleSubmit,
+  reset,
+  formState: { errors, isValid },
+} = useForm({ mode: 'onChange' });
+
 
   const user = useSelector(selectLoggedInUser);
   const items = useSelector(selectItems);
@@ -99,7 +100,7 @@ function Checkout() {
                         htmlFor="name"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Full name
+                        <span className="text-xl text-red-900" >*</span>Full name
                       </label>
                       <div className="mt-2">
                         <input
@@ -118,7 +119,7 @@ function Checkout() {
                         htmlFor="email"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Email address
+                        <span className="text-xl text-red-900" >*</span>Email address
                       </label>
                       <div className="mt-2">
                         <input
@@ -137,7 +138,7 @@ function Checkout() {
                         htmlFor="phone"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Phone
+                        <span className="text-xl text-red-900" >*</span>Phone
                       </label>
                       <div className="mt-2">
                         <input
@@ -156,7 +157,7 @@ function Checkout() {
                         htmlFor="street-address"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Street address
+                        <span className="text-xl text-red-900" >*</span>Street address
                       </label>
                       <div className="mt-2">
                         <input
@@ -175,7 +176,7 @@ function Checkout() {
                         htmlFor="city"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        City
+                        <span className="text-xl text-red-900" >*</span>City
                       </label>
                       <div className="mt-2">
                         <input
@@ -194,7 +195,7 @@ function Checkout() {
                       <label
                         htmlFor="state"
                         className="block text-sm font-medium leading-6 text-gray-900"
-                      >
+                      ><span className="text-xl text-red-900" >*</span>
                         State / Province
                       </label>
                       <div className="mt-2">
@@ -214,7 +215,7 @@ function Checkout() {
                       <label
                         htmlFor="pinCode"
                         className="block text-sm font-medium leading-6 text-gray-900"
-                      >
+                      ><span className="text-xl text-red-900" >*</span>
                         ZIP / Postal code
                       </label>
                       <div className="mt-2">
@@ -232,24 +233,29 @@ function Checkout() {
                 </div>
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
-                  <button
+                  {/* <button
                     // onClick={e=>reset()}
                     type="button"
                     className="text-sm font-semibold leading-6 text-gray-900"
                   >
                     Reset
-                  </button>
+                  </button> */}
                   <button
-                    type="submit"
-                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    Add Address
-                  </button>
+                  type="submit"
+                  disabled={!isValid}
+                className={`rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${isValid
+      ? 'bg-indigo-600 text-white hover:bg-indigo-500 focus-visible:outline-indigo-600'
+      : 'bg-gray-400 text-white cursor-not-allowed'
+  }`}
+>
+  Add Address
+</button>
+
                 </div>
 
                 <div className="border-b border-gray-900/10 pb-12">
                   <h2 className="text-base font-semibold leading-7 text-gray-900">
-                    Addresses
+                   <span className="text-xl text-red-900" >*</span> Addresses
                   </h2>
                   <p className="mt-1 text-sm leading-6 text-gray-600">
                     Choose from Existing addresses
@@ -295,7 +301,7 @@ function Checkout() {
                   <div className="mt-10 space-y-10">
                     <fieldset>
                       <legend className="text-sm font-semibold leading-6 text-gray-900">
-                        Payment Methods
+                        <span className="text-xl text-red-900" >*</span>Payment Methods
                       </legend>
                       <p className="mt-1 text-sm leading-6 text-gray-600">
                         Choose One
@@ -422,12 +428,18 @@ function Checkout() {
                   Shipping and taxes calculated at checkout.
                 </p>
                 <div className="mt-6">
-                  <div 
-                    onClick={handleOrder}
-                    className="flex cursor-pointer items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                  >
-                    Order Now
-                  </div>
+                  <button
+  onClick={handleOrder}
+  disabled={!selectedAddress || !paymentMethod}
+  className={`flex w-full items-center justify-center rounded-md border border-transparent px-6 py-3 text-base font-medium shadow-sm ${
+    !selectedAddress || !paymentMethod
+      ? 'bg-gray-400 text-white cursor-not-allowed'
+      : 'bg-indigo-600 text-white hover:bg-indigo-700'
+  }`}
+>
+  Order Now
+</button>
+
                 </div>
                 <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                   <p>

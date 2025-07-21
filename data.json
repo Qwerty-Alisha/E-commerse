@@ -5196,6 +5196,15 @@
           "city": "delhi",
           "state": "delhi",
           "pinCode": "110008"
+        },
+        {
+          "name": "AYSHA",
+          "email": "ay60sha@gmail.com",
+          "phone": "09212805521",
+          "street": "munshi ram bagh",
+          "city": "delhi",
+          "state": "Delhi",
+          "pinCode": "110086"
         }
       ],
       "id": 1
@@ -5217,97 +5226,18 @@
       "id": 2
     }
   ],
-  "cart": [],
-  "orders": [
+  "cart": [
     {
-      "items": [
-        {
-          "title": "Mens Cotton Jacket",
-          "price": 55.99,
-          "description": "great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.",
-          "category": "men's clothing",
-          "image": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
-          "rating": 4.7,
-          "quantity": 1,
-          "user": 1,
-          "id": 1
-        }
-      ],
-      "totalAmount": 55.99,
-      "totalItems": 1,
-      "user": {
-        "email": "ay60sha@gmail.com",
-        "password": "Qwerty123",
-        "addresses": [
-          {
-            "name": "Alisha ",
-            "email": "ay60sha@gmail.com",
-            "phone": "9212805521",
-            "street": "munshi ram bagh",
-            "city": "delhi",
-            "state": "delhi",
-            "pinCode": "110008"
-          }
-        ],
-        "id": 1
-      },
-      "paymentMethod": "cash",
-      "selectedAddress": {
-        "name": "Alisha ",
-        "email": "ay60sha@gmail.com",
-        "phone": "9212805521",
-        "street": "munshi ram bagh",
-        "city": "delhi",
-        "state": "delhi",
-        "pinCode": "110008"
-      },
-      "status": "pending",
-      "id": 1
-    },
-    {
-      "items": [
-        {
-          "title": "White Gold Plated Princess",
-          "price": 9.99,
-          "description": "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
-          "category": "jewelery",
-          "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
-          "rating": 3,
-          "quantity": 1,
-          "user": 2,
-          "id": 1
-        }
-      ],
-      "totalAmount": 9.99,
-      "totalItems": 1,
-      "user": {
-        "email": "sakibkhan96436@gmail.com",
-        "password": "Qwerty123",
-        "addresses": [
-          {
-            "name": "Saqib",
-            "email": "sakibkhan96436@gmail.com",
-            "phone": "9212805522",
-            "street": "munshi bagh",
-            "city": "delhi",
-            "state": "delhi",
-            "pinCode": "110008"
-          }
-        ],
-        "id": 2
-      },
-      "paymentMethod": "cash",
-      "selectedAddress": {
-        "name": "Saqib",
-        "email": "sakibkhan96436@gmail.com",
-        "phone": "9212805522",
-        "street": "munshi bagh",
-        "city": "delhi",
-        "state": "delhi",
-        "pinCode": "110008"
-      },
-      "status": "pending",
+      "title": "Pierced Owl Rose Gold Plated Stainless Steel Double",
+      "price": 10.99,
+      "description": "Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel",
+      "category": "jewelery",
+      "image": "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg",
+      "rating": 1.9,
+      "quantity": 1,
+      "user": 1,
       "id": 1
     }
-  ]
+  ],
+  "orders": []
 }
