@@ -5212,32 +5212,345 @@
     {
       "email": "sakibkhan96436@gmail.com",
       "password": "Qwerty123",
-      "addresses": [
-        {
-          "name": "Saqib",
-          "email": "sakibkhan96436@gmail.com",
-          "phone": "9212805522",
-          "street": "munshi bagh",
-          "city": "delhi",
-          "state": "delhi",
-          "pinCode": "110008"
-        }
-      ],
+      "addresses": [],
       "id": 2
     }
   ],
   "cart": [
     {
-      "title": "Pierced Owl Rose Gold Plated Stainless Steel Double",
-      "price": 10.99,
-      "description": "Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel",
-      "category": "jewelery",
-      "image": "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg",
-      "rating": 1.9,
+      "title": "Mens Cotton Jacket",
+      "price": 55.99,
+      "description": "great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.",
+      "category": "men's clothing",
+      "image": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
+      "rating": 4.7,
       "quantity": 1,
-      "user": 1,
+      "user": 2,
       "id": 1
     }
   ],
-  "orders": []
+  "orders": [
+    {
+      "items": [
+        {
+          "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+          "price": 109.95,
+          "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+          "category": "men's clothing",
+          "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+          "rating": 3.9,
+          "quantity": 1,
+          "user": 3,
+          "id": 9
+        },
+        {
+          "title": "Solid Gold Petite Micropave ",
+          "price": 168,
+          "description": "Satisfaction Guaranteed. Return or exchange any order within 30 days.Designed and sold by Hafeez Center in the United States. Satisfaction Guaranteed. Return or exchange any order within 30 days.",
+          "category": "jewelery",
+          "image": "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg",
+          "rating": 3.9,
+          "quantity": 1,
+          "user": 3,
+          "id": 11
+        },
+        {
+          "title": "White Gold Plated Princess",
+          "price": 9.99,
+          "description": "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
+          "category": "jewelery",
+          "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
+          "rating": 3,
+          "quantity": 1,
+          "user": 3,
+          "id": 12
+        },
+        {
+          "title": "Pierced Owl Rose Gold Plated Stainless Steel Double",
+          "price": 10.99,
+          "description": "Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel",
+          "category": "jewelery",
+          "image": "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg",
+          "rating": 1.9,
+          "quantity": 1,
+          "user": 3,
+          "id": 13
+        },
+        {
+          "title": "Rain Jacket Women Windbreaker Striped Climbing Raincoats",
+          "price": 39.99,
+          "description": "Lightweight perfet for trip or casual wear---Long sleeve with hooded, adjustable drawstring waist design. Button and zipper front closure raincoat, fully stripes Lined and The Raincoat has 2 side pockets are a good size to hold all kinds of things, it covers the hips, and the hood is generous but doesn't overdo it.Attached Cotton Lined Hood with Adjustable Drawstrings give it a real styled look.",
+          "category": "women's clothing",
+          "image": "https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg",
+          "rating": 3.8,
+          "stock": 20,
+          "quantity": 1,
+          "user": 3,
+          "id": 14
+        },
+        {
+          "title": "Ice Cream",
+          "description": "Creamy and delicious ice cream, available in various flavors for a delightful treat.",
+          "category": "groceries",
+          "price": 5.49,
+          "discountPercentage": 7.58,
+          "rating": 3.77,
+          "stock": 76,
+          "tags": [
+            "desserts"
+          ],
+          "sku": "VEZMU1EQ",
+          "weight": 5,
+          "dimensions": {
+            "width": 17.66,
+            "height": 24.49,
+            "depth": 25.98
+          },
+          "warrantyInformation": "2 year warranty",
+          "shippingInformation": "Ships in 2 weeks",
+          "availabilityStatus": "In Stock",
+          "reviews": [
+            {
+              "rating": 5,
+              "comment": "Great product!",
+              "date": "2024-05-23T08:56:21.620Z",
+              "reviewerName": "Elena Baker",
+              "reviewerEmail": "elena.baker@x.dummyjson.com"
+            },
+            {
+              "rating": 5,
+              "comment": "Highly impressed!",
+              "date": "2024-05-23T08:56:21.620Z",
+              "reviewerName": "Madeline Simpson",
+              "reviewerEmail": "madeline.simpson@x.dummyjson.com"
+            },
+            {
+              "rating": 5,
+              "comment": "Very happy with my purchase!",
+              "date": "2024-05-23T08:56:21.620Z",
+              "reviewerName": "Caleb Nelson",
+              "reviewerEmail": "caleb.nelson@x.dummyjson.com"
+            }
+          ],
+          "returnPolicy": "No return policy",
+          "minimumOrderQuantity": 19,
+          "meta": {
+            "createdAt": "2024-05-23T08:56:21.620Z",
+            "updatedAt": "2024-05-23T08:56:21.620Z",
+            "barcode": "9603960319256",
+            "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
+          },
+          "images": [
+            "https://cdn.dummyjson.com/products/images/groceries/Ice%20Cream/1.png",
+            "https://cdn.dummyjson.com/products/images/groceries/Ice%20Cream/2.png",
+            "https://cdn.dummyjson.com/products/images/groceries/Ice%20Cream/3.png",
+            "https://cdn.dummyjson.com/products/images/groceries/Ice%20Cream/4.png"
+          ],
+          "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Ice%20Cream/thumbnail.png",
+          "quantity": 1,
+          "user": 3,
+          "id": 15
+        },
+        {
+          "title": "Rolex Cellini Date Black Dial",
+          "description": "The Rolex Cellini Date with Black Dial is a classic and prestigious watch. With a black dial and date complication, it exudes sophistication and is a symbol of Rolex's heritage.",
+          "category": "mens-watches",
+          "price": 8999.99,
+          "discountPercentage": 14.28,
+          "rating": 3.61,
+          "stock": 84,
+          "tags": [
+            "watches",
+            "luxury watches"
+          ],
+          "brand": "Rolex",
+          "sku": "J3GPKQW0",
+          "weight": 6,
+          "dimensions": {
+            "width": 12.17,
+            "height": 27.99,
+            "depth": 10.36
+          },
+          "warrantyInformation": "5 year warranty",
+          "shippingInformation": "Ships in 1 month",
+          "availabilityStatus": "In Stock",
+          "reviews": [
+            {
+              "rating": 5,
+              "comment": "Very pleased!",
+              "date": "2024-05-23T08:56:21.624Z",
+              "reviewerName": "Gavin Stanley",
+              "reviewerEmail": "gavin.stanley@x.dummyjson.com"
+            },
+            {
+              "rating": 4,
+              "comment": "Highly impressed!",
+              "date": "2024-05-23T08:56:21.624Z",
+              "reviewerName": "Stella Hughes",
+              "reviewerEmail": "stella.hughes@x.dummyjson.com"
+            },
+            {
+              "rating": 4,
+              "comment": "Would buy again!",
+              "date": "2024-05-23T08:56:21.624Z",
+              "reviewerName": "Paisley Bell",
+              "reviewerEmail": "paisley.bell@x.dummyjson.com"
+            }
+          ],
+          "returnPolicy": "30 days return policy",
+          "minimumOrderQuantity": 1,
+          "meta": {
+            "createdAt": "2024-05-23T08:56:21.624Z",
+            "updatedAt": "2024-05-23T08:56:21.624Z",
+            "barcode": "8917585155737",
+            "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
+          },
+          "images": [
+            "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Date%20Black%20Dial/1.png",
+            "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Date%20Black%20Dial/2.png",
+            "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Date%20Black%20Dial/3.png"
+          ],
+          "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Date%20Black%20Dial/thumbnail.png",
+          "quantity": 1,
+          "user": 3,
+          "id": 16
+        }
+      ],
+      "totalAmount": 9344.4,
+      "totalItems": 7,
+      "user": {
+        "email": "ay60sha@gmail.com",
+        "password": "Dbzksvg70",
+        "addresses": [
+          {
+            "name": "Aysha",
+            "email": "ay60sha@gmail.com",
+            "phone": "8377040647",
+            "street": "west city",
+            "city": "Japan",
+            "state": "satan city",
+            "pinCode": "17207"
+          }
+        ],
+        "id": 3
+      },
+      "paymentMethod": "cash",
+      "selectedAddress": {
+        "name": "Aysha",
+        "email": "ay60sha@gmail.com",
+        "phone": "8377040647",
+        "street": "west city",
+        "city": "Japan",
+        "state": "satan city",
+        "pinCode": "17207"
+      },
+      "status": "pending",
+      "serialNumber": "ORD-1753177274734-2643",
+      "orderPlacedAt": "7/22/2025, 3:11:14 PM",
+      "id": 1
+    },
+    {
+      "items": [
+        {
+          "title": "Pierced Owl Rose Gold Plated Stainless Steel Double",
+          "price": 10.99,
+          "description": "Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel",
+          "category": "jewelery",
+          "image": "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg",
+          "rating": 1.9,
+          "quantity": 1,
+          "user": 1,
+          "id": 1
+        }
+      ],
+      "totalAmount": 10.99,
+      "totalItems": 1,
+      "user": {
+        "email": "ay60sha@gmail.com",
+        "password": "Qwerty123",
+        "addresses": [
+          {
+            "name": "Alisha ",
+            "email": "ay60sha@gmail.com",
+            "phone": "9212805521",
+            "street": "munshi ram bagh",
+            "city": "delhi",
+            "state": "delhi",
+            "pinCode": "110008"
+          },
+          {
+            "name": "AYSHA",
+            "email": "ay60sha@gmail.com",
+            "phone": "09212805521",
+            "street": "munshi ram bagh",
+            "city": "delhi",
+            "state": "Delhi",
+            "pinCode": "110086"
+          }
+        ],
+        "id": 1
+      },
+      "paymentMethod": "card",
+      "selectedAddress": {
+        "name": "Alisha ",
+        "email": "ay60sha@gmail.com",
+        "phone": "9212805521",
+        "street": "munshi ram bagh",
+        "city": "delhi",
+        "state": "delhi",
+        "pinCode": "110008"
+      },
+      "status": "pending",
+      "serialNumber": "ORD-1753177381515-1133",
+      "orderPlacedAt": "7/22/2025, 3:13:01 PM",
+      "id": 2
+    },
+    {
+      "items": [
+        {
+          "title": "White Gold Plated Princess",
+          "price": 9.99,
+          "description": "Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...",
+          "category": "jewelery",
+          "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
+          "rating": 3,
+          "quantity": 1,
+          "user": 3,
+          "id": 1
+        }
+      ],
+      "totalAmount": 9.99,
+      "totalItems": 1,
+      "user": {
+        "email": "aysha@gmail.com",
+        "password": "Dbzksvg70",
+        "addresses": [
+          {
+            "name": "Aysha",
+            "email": "ay60sha@gmail.com",
+            "phone": "8377040647",
+            "street": "west city",
+            "city": "Japan",
+            "state": "satan city",
+            "pinCode": "17207"
+          }
+        ],
+        "id": 3
+      },
+      "paymentMethod": "card",
+      "selectedAddress": {
+        "name": "Aysha",
+        "email": "ay60sha@gmail.com",
+        "phone": "8377040647",
+        "street": "west city",
+        "city": "Japan",
+        "state": "satan city",
+        "pinCode": "17207"
+      },
+      "status": "pending",
+      "serialNumber": "ORD-1753177521991-3228",
+      "orderPlacedAt": "7/22/2025, 3:15:21 PM",
+      "id": 3
+    }
+  ]
 }
