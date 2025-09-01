@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, incrementAsync, selectError, selectLoggedInUser, checkUserAsync  } from './authSlice';
+import {selectError, selectLoggedInUser, checkUserAsync  } from './authSlice';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 

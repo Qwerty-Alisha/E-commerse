@@ -260,7 +260,7 @@ function Checkout() {
                   <p className="mt-1 text-sm leading-6 text-gray-600">
                     Choose from Existing addresses
                   </p>
-                  <ul role="list">
+                  <ul>
                     {user.addresses.map((address, index) => (
                       <li
                         key={index}

@@ -1,6 +1,3 @@
-
-
-
 import './App.css';
 import Home from './pages/home.js'
 import LoginPage from './pages/LoginPage.js'
@@ -8,26 +5,19 @@ import SignupPage from './pages/SignupPage.js'
 import CartPage from './pages/cartPage.js'
 import Details from './pages/ProdDetaisPage.js'
 import Protected from './featues/auth/protected.js';
-// import cart_page from './pages/cartPage';
 import Checkout from './pages/checkout';
 import PageNotFound from './pages/404';
 import OrderSuccessPage from './pages/OrderSuccessPage';
 import UserOrdersPage from './pages/UserOrdersPage';
-// import * as React from "react";
-// import { createRoot } from "react-dom/client";
 import { fetchItemsByUserIdAsync } from './featues/cart/cartSlice';
 import Logout from './featues/auth/Logout';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ProtectedAdmin from './featues/auth/ProtectedAdmin';
+import AdminHome from './pages/AdminHome';
+import AdminProductDetailPage from './pages/AdminProductDetailPage';
+import AdminProductFormPage from './pages/AdminProductFormPage';
 
-
-
-import {
-  createBrowserRouter,
-  RouterProvider,
-  // Route,
-  // Link,
-} from 'react-router-dom';
-
+import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLoggedInUser } from './featues/auth/authSlice';
@@ -64,6 +54,38 @@ const router = createBrowserRouter([
     path: "/ProdDetails/:id",
     element: (
       <Protected><Details></Details></Protected>
+    ),
+  },
+  {
+    path: '/admin',
+    element: (
+      <ProtectedAdmin>
+        <AdminHome></AdminHome>
+      </ProtectedAdmin>
+    ),
+  },
+  {
+    path: '/admin/product-detail/:id',
+    element: (
+      <ProtectedAdmin>
+        <AdminProductDetailPage></AdminProductDetailPage>
+      </ProtectedAdmin>
+    ),
+  },
+  {
+    path: '/admin/product-form',
+    element: (
+      <ProtectedAdmin>
+        <AdminProductFormPage></AdminProductFormPage>
+      </ProtectedAdmin>
+    ),
+  },
+  {
+    path: '/admin/product-form/edit/:id',
+    element: (
+      <ProtectedAdmin>
+        <AdminProductFormPage></AdminProductFormPage>
+      </ProtectedAdmin>
     ),
   },
    {
@@ -113,9 +135,12 @@ function App() {
   },[dispatch, user]);
 
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <>
+      <div className="App">
+        <RouterProvider router={router} />
+        {/* Link must be inside the Provider */}
+      </div>
+    </>
   );
 }
 

@@ -58,7 +58,7 @@ export default function UserProfile() {
           <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
             email address : {userInfo.email}
           </h3>
-          {userInfo.role === 'admin' && (
+         {userInfo.role === 'admin' && (
             <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
               role : {userInfo.role}
             </h3>
@@ -77,7 +77,7 @@ export default function UserProfile() {
             Add New Address
           </button>
           {showAddAddressForm ? (
-            <form
+             <form
               className="bg-white px-5 py-12 mt-12"
               noValidate
               onSubmit={handleSubmit((data) => {
@@ -95,7 +95,7 @@ export default function UserProfile() {
                     Use a permanent address where you can receive mail.
                   </p>
 
-                  <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div className="sm:col-span-4">
                       <label
                         htmlFor="name"
@@ -118,7 +118,7 @@ export default function UserProfile() {
                       </div>
                     </div>
 
-                    <div className="sm:col-span-4">
+                     <div className="sm:col-span-4">
                       <label
                         htmlFor="email"
                         className="block text-sm font-medium leading-6 text-gray-900"
@@ -186,7 +186,7 @@ export default function UserProfile() {
                       </div>
                     </div>
 
-                    <div className="sm:col-span-2 sm:col-start-1">
+                     <div className="sm:col-span-2 sm:col-start-1">
                       <label
                         htmlFor="city"
                         className="block text-sm font-medium leading-6 text-gray-900"
@@ -228,15 +228,15 @@ export default function UserProfile() {
                         {errors.state && (
                           <p className="text-red-500">{errors.state.message}</p>
                         )}
-                      </div>
-                    </div>
+                  </div>
+                </div>
 
-                    <div className="sm:col-span-2">
+                <div className="sm:col-span-2">
                       <label
                         htmlFor="pinCode"
                         className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        ZIP / Postal code
+                  >
+                   ZIP / Postal code
                       </label>
                       <div className="mt-2">
                         <input
@@ -253,9 +253,9 @@ export default function UserProfile() {
                           </p>
                         )}
                       </div>
-                    </div>
-                  </div>
                 </div>
+              </div>
+            </div>
 
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                   <button

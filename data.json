@@ -5187,6 +5187,7 @@
     {
       "email": "ay60sha@gmail.com",
       "password": "Qwerty123",
+      "role": "admin",
       "addresses": [
         {
           "name": "Alisha ",

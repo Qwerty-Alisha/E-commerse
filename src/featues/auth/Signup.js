@@ -34,7 +34,9 @@ export default function Signup() {
           <div className="pt-10 pl-10 pr-10 sm:mx-auto bg-white sm:w-full sm:max-w-sm">
             <form action="#" noValidate method="POST" className="space-y-6" onSubmit={handleSubmit((data) => {
               dispatch(
-                createUserAsync({ email: data.email, password: data.password , addresses:[]})
+                createUserAsync({ email: data.email, password: data.password , addresses:[], role:'user',
+                  //TODO: this role can be directly given on backend
+                  })
               );
               console.log(data);
             })}>

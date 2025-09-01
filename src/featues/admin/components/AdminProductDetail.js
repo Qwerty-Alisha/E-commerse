@@ -1,13 +1,13 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-import { StarIcon } from '@heroicons/react/20/solid'
-import { Radio, RadioGroup } from '@headlessui/react'
+import { useState, useEffect } from 'react';
+import { StarIcon } from '@heroicons/react/20/solid';
+import { RadioGroup } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductsbyIdAsync , selectProductbyId} from './productSlice';
+import { fetchProductsbyIdAsync, selectProductbyId } from '../../../productSlice';
 import { useParams } from 'react-router-dom';
-import { addToCartAsync } from './featues/cart/cartSlice';
-import { selectLoggedInUser } from './featues/auth/authSlice';
+import { addToCartAsync } from '../../cart/cartSlice';
+import { selectLoggedInUser } from '../../auth/authSlice';
+
+// TODO: In server data we will add colors, sizes , highlights. to each product
 
 const colors = [
   { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
@@ -30,31 +30,28 @@ const highlights = [
   'Dyed with our proprietary colors',
   'Pre-washed & pre-shrunk',
   'Ultra-soft 100% cotton',
-]
+];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
+// TODO : Loading UI
 
-
-// TODO : Loading UI  
-
-export default function ProductDetail() {
+export default function AdminProductDetail() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
-  const user = useSelector(selectLoggedInUser)
+  const user = useSelector(selectLoggedInUser);
   const product = useSelector(selectProductbyId);
   const dispatch = useDispatch();
   const params = useParams();
 
-
-  const handleCart = (e)=>{
+  const handleCart = (e) => {
     e.preventDefault();
-    const newItem  = {...product,quantity:1,user:user.id }
+    const newItem = { ...product, quantity: 1, user: user.id };
     delete newItem['id'];
-    dispatch(addToCartAsync(newItem)) 
-  }
+    dispatch(addToCartAsync(newItem));
+  };
 
   useEffect(() => {
     dispatch(fetchProductsbyIdAsync(params.id));
@@ -105,64 +102,36 @@ export default function ProductDetail() {
 
           {/* Image gallery */}
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          {Array.isArray(product.images) && product.images.length > 0 ? (
-    <>
-      <img
-        src={product.images[0]}
-        alt={product.title}
-        className="hidden size-full rounded-lg object-cover lg:block"
-      />
-      <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-        {product.images[1] && (
-          <img
-            src={product.images[1]}
-            alt={product.title}
-            className="aspect-[3/2] w-full rounded-lg object-cover"
-          />
-        )}
-        {product.images[2] && (
-          <img
-            src={product.images[2]}
-            alt={product.title}
-            className="aspect-[3/2] w-full rounded-lg object-cover"
-          />
-        )}
-      </div>
-      {product.images[3] && (
-        <img
-          src={product.images[3]}
-          alt={product.title}
-          className="aspect-[4/5] size-full object-cover sm:rounded-lg lg:aspect-auto"
-        />
-      )}
-    </>
-  ) : (
-    <>
-      {/* Fallback to single image */}
-      <img
-        src={product.image}
-        alt={product.title}
-        className="hidden size-full rounded-lg object-cover lg:block"
-      />
-      <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-        <img
-          src={product.image}
-          alt={product.title}
-          className="aspect-[3/2] w-full rounded-lg object-cover"
-        />
-        <img
-          src={product.image}
-          alt={product.title}
-          className="aspect-[3/2] w-full rounded-lg object-cover"
-        />
-      </div>
-      <img
-        src={product.image}
-        alt={product.title}
-        className="aspect-[4/5] size-full object-cover sm:rounded-lg lg:aspect-auto"
-      />
-    </>
-  )}
+            <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+              <img
+                src={product.images[0]}
+                alt={product.title}
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+            <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+                <img
+                  src={product.images[1]}
+                  alt={product.title}
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
+              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+                <img
+                  src={product.images[2]}
+                  alt={product.title}
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
+            </div>
+            <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+              <img
+                src={product.images[3]}
+                alt={product.title}
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
           </div>
 
           {/* Product info */}
@@ -177,7 +146,7 @@ export default function ProductDetail() {
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
               <p className="text-3xl tracking-tight text-gray-900">
-               ${product.price}
+                ${product.price}
               </p>
 
               {/* Reviews */}
@@ -356,10 +325,10 @@ export default function ProductDetail() {
                 <div className="mt-4">
                   <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
                     {highlights.map((highlight) => (
-                        <li key={highlight} className="text-gray-400">
-                          <span className="text-gray-600">{highlight}</span>
-                        </li>
-                      ))}
+                      <li key={highlight} className="text-gray-400">
+                        <span className="text-gray-600">{highlight}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
