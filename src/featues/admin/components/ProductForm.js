@@ -35,20 +35,35 @@ function ProductForm() {
   }, [params.id, dispatch]);
 
   useEffect(() => {
-    if (selectedProduct && params.id) {
-      setValue('title', selectedProduct.title);
-      setValue('description', selectedProduct.description);
-      setValue('price', selectedProduct.price);
-      setValue('discountPercentage', selectedProduct.discountPercentage);
-      setValue('thumbnail', selectedProduct.thumbnail);
-      setValue('stock', selectedProduct.stock);
+  if (selectedProduct && params.id) {
+    setValue('title', selectedProduct.title);
+    setValue('description', selectedProduct.description);
+    setValue('price', selectedProduct.price);
+    setValue('discountPercentage', selectedProduct.discountPercentage);
+    setValue('thumbnail', selectedProduct.thumbnail);
+    setValue('stock', selectedProduct.stock);
+
+    // Conditionally check for the 'images' array
+    if (selectedProduct.images) {
       setValue('image1', selectedProduct.images[0]);
       setValue('image2', selectedProduct.images[1]);
       setValue('image3', selectedProduct.images[2]);
-      setValue('brand', selectedProduct.brand);
-      setValue('category', selectedProduct.category);
+    } else {
+      // Handle the single 'image' string from the first API
+      setValue('image1', selectedProduct.image);
+      setValue('image2', null);
+      setValue('image3', null);
     }
-  }, [selectedProduct, params.id, setValue]);
+    
+    // Conditionally check for the 'brand' and 'category' properties
+    if (selectedProduct.brand) {
+        setValue('brand', selectedProduct.brand);
+    }
+    if (selectedProduct.category) {
+        setValue('category', selectedProduct.category);
+    }
+  }
+}, [selectedProduct, params.id, setValue]);
 
 
   const handleDelete = () =>{

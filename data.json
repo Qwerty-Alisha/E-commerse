@@ -349,9 +349,14 @@
         "qrCode": "https://assets.dummyjson.com/public/qr-code.png"
       },
       "images": [
-        "https://cdn.dummyjson.com/products/images/groceries/Dog%20Food/1.png"
+        "https://cdn.dummyjson.com/products/images/groceries/Dog%20Food/1.png",
+        "https://cdn.dummyjson.com/products/images/groceries/Dog%20Food/1.png",
+        "https://cdn.dummyjson.com/products/images/groceries/Dog%20Food/1.png",
+        "https://cdn.dummyjson.com/products/images/groceries/Dog%20Food/thumbnail.png"
       ],
-      "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Dog%20Food/thumbnail.png"
+      "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Dog%20Food/thumbnail.png",
+      "deleted": true,
+      "brand": "Gigabyte"
     },
     {
       "id": 23,
@@ -5032,6 +5037,24 @@
         "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/3.png"
       ],
       "thumbnail": "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/thumbnail.png"
+    },
+    {
+      "title": "lace up heels",
+      "description": "lace up heels",
+      "brand": "Fashion Timepieces",
+      "category": "women's clothing",
+      "price": 80,
+      "discountPercentage": 2,
+      "stock": 5,
+      "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO2YSt98AZ6EwFCmqt886SBeyZ84kKO1Ar6A&s",
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO2YSt98AZ6EwFCmqt886SBeyZ84kKO1Ar6A&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO2YSt98AZ6EwFCmqt886SBeyZ84kKO1Ar6A&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO2YSt98AZ6EwFCmqt886SBeyZ84kKO1Ar6A&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTO2YSt98AZ6EwFCmqt886SBeyZ84kKO1Ar6A&s"
+      ],
+      "rating": 0,
+      "id": 101
     }
   ],
   "brands": [
