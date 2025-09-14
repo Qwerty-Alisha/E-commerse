@@ -25,6 +25,7 @@ const navigation = [
   { name: 'Team', link: '#', user: true },
   { name: 'Signup', link: '/Signup', current: false },
   { name: 'Admin', link: '/admin', admin: true },
+   { name: 'Orders', link: '/admin/orders', admin: true },
 
 ];
 const userNavigation = [

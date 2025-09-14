@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectLoggedInUser } from './featues/auth/authSlice';
 import UserProfilePage from './pages/UserProfilePage';
 import { fetchLoggedInUserAsync } from './featues/user/userSlice';
+import AdminOrdersPage from './pages/AdminOrdersPage';
 const router = createBrowserRouter([
   {
     path: '/checkout',
@@ -36,6 +37,14 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <Home></Home>
+    ),
+  },
+   {
+    path: '/admin/orders',
+    element: (
+      <ProtectedAdmin>
+        <AdminOrdersPage></AdminOrdersPage>
+      </ProtectedAdmin>
     ),
   },
   {
