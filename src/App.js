@@ -1,3 +1,13 @@
+// import * as ReactAlert from 'react-alert';
+// console.log('react-alert exports:', ReactAlert);
+
+import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLoggedInUser } from './featues/auth/authSlice';
+import UserProfilePage from './pages/UserProfilePage';
+import { fetchLoggedInUserAsync } from './featues/user/userSlice';
+import AdminOrdersPage from './pages/AdminOrdersPage';
 import './App.css';
 import Home from './pages/home.js'
 import LoginPage from './pages/LoginPage.js'
@@ -16,14 +26,13 @@ import ProtectedAdmin from './featues/auth/ProtectedAdmin';
 import AdminHome from './pages/AdminHome';
 import AdminProductDetailPage from './pages/AdminProductDetailPage';
 import AdminProductFormPage from './pages/AdminProductFormPage';
+import { positions, Provider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
 
-import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectLoggedInUser } from './featues/auth/authSlice';
-import UserProfilePage from './pages/UserProfilePage';
-import { fetchLoggedInUserAsync } from './featues/user/userSlice';
-import AdminOrdersPage from './pages/AdminOrdersPage';
+const options = {
+  timeout: 5000,
+  position: positions.BOTTOM_LEFT,
+};
 const router = createBrowserRouter([
   {
     path: '/checkout',
@@ -146,7 +155,9 @@ function App() {
   return (
     <>
       <div className="App">
-        <RouterProvider router={router} />
+        <Provider template={AlertTemplate} {...options}>
+          <RouterProvider router={router} />
+        </Provider>
         {/* Link must be inside the Provider */}
       </div>
     </>
