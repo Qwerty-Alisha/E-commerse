@@ -1,6 +1,3 @@
-// import * as ReactAlert from 'react-alert';
-// console.log('react-alert exports:', ReactAlert);
-
 import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -109,19 +106,25 @@ const router = createBrowserRouter([
    {
     path: '/order-success/:id',
     element: (
-      <OrderSuccessPage></OrderSuccessPage>
+      <Protected>
+        <OrderSuccessPage></OrderSuccessPage>{' '}
+      </Protected>
     ),
   },
   {
     path: '/orders',
     element: (
-      <UserOrdersPage></UserOrdersPage>
+      <Protected>
+        <UserOrdersPage></UserOrdersPage>{' '}
+      </Protected>
     ),
   },
   {
     path: '/profile',
     element: (
-      <UserProfilePage></UserProfilePage>
+      <Protected>
+        <UserProfilePage></UserProfilePage>{' '}
+      </Protected>
     ),
   },
    {
