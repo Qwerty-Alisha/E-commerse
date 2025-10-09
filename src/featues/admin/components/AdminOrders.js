@@ -99,7 +99,7 @@ function AdminOrders() {
                         <ArrowDownIcon className="w-4 h-4 inline"></ArrowDownIcon>
                       ))}
                   </th>
-                  <th className="py-3 px-0 text-center">Items</th>
+                  <th className="py-3 px-0 text-left">Items</th>
                   <th
                     className="py-3 px-0 text-left cursor-pointer"
                     onClick={(e) =>
@@ -155,7 +155,7 @@ function AdminOrders() {
                         <ArrowDownIcon className="w-4 h-4 inline"></ArrowDownIcon>
                       ))}
                   </th>
-                  <th className="py-3 px-3 text-center">Actions</th>
+                  <th className="py-3 px-0 text-center">Actions</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm font-light">
@@ -166,33 +166,33 @@ function AdminOrders() {
                   >
                     <td className="py-3 px-0 text-left whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="mr-2  ml-1"></div>
+                        <div className="mr-2"></div>
                         <span className="font-medium">{order.id}</span>
                       </div>
                     </td>
                     <td className="py-3 px-0 text-left">
                       {order.items.map((item, index) => (
                         <div key={index} className="flex items-center">
-                          <div className="mr-1">
+                          <div className="mr-2">
                             <img
                               className="w-6 h-6 rounded-full"
-                              src={item.thumbnail}
-                              alt={item.title}
+                              src={item.product.thumbnail}
+                              alt={item.product.title}
                             />
                           </div>
                           <span>
-                            {item.title} - #{item.quantity} - $
-                            {item.discountPrice}
+                            {item.product.title} - #{item.quantity} - $
+                            {item.product.discountPrice}
                           </span>
                         </div>
                       ))}
                     </td>
                     <td className="py-3 px-0 text-center">
-                      <div className="flex items-center mr-1 justify-center">
+                      <div className="flex items-center justify-center">
                         ${order.totalAmount}
                       </div>
                     </td>
-                    <td className="py-3 px-0 mr-1 text-center">
+                    <td className="py-3 px-0 text-center">
                       <div className="">
                         <div>
                           <strong>{order.selectedAddress.name}</strong>,
@@ -204,7 +204,7 @@ function AdminOrders() {
                         <div>{order.selectedAddress.phone}, </div>
                       </div>
                     </td>
-                    <td className="py-3 mr-1 px-0 text-center">
+                    <td className="py-3 px-0 text-center">
                       {order.id === editableOrderId ? (
                         <select onChange={(e) => handleOrderStatus(e, order)}>
                           <option value="pending">Pending</option>
@@ -216,7 +216,7 @@ function AdminOrders() {
                         <span
                           className={`${chooseColor(
                             order.status
-                          )} py-1 px-3 mr-1 rounded-full text-xs`}
+                          )} py-1 px-3 rounded-full text-xs`}
                         >
                           {order.status}
                         </span>
@@ -224,7 +224,7 @@ function AdminOrders() {
                     </td>
 
                     <td className="py-3 px-0 text-center">
-                      <div className="flex items-center mr-1 justify-center">
+                      <div className="flex items-center justify-center">
                         {order.paymentMethod}
                       </div>
                     </td>
@@ -249,19 +249,19 @@ function AdminOrders() {
                     </td>
 
                     <td className="py-3 px-0 text-center">
-                      <div className="flex items-center mr-1 justify-center">
+                      <div className="flex items-center justify-center">
                         {order.createdAt? new Date(order.createdAt).toLocaleString():null }
                       </div>
                     </td>
 
 
                     <td className="py-3 px-0 text-center">
-                      <div className="flex items-center mr-1 justify-center">
+                      <div className="flex items-center justify-center">
                       {order.updatedAt? new Date(order.updatedAt).toLocaleString():null }
                       </div>
                     </td>
 
-                    <td className="py-3 px-3 text-center">
+                    <td className="py-3 px-0 text-center">
                       <div className="flex item-center justify-center">
                         <div className="w-6 mr-4 transform hover:text-purple-500 hover:scale-120">
                           <EyeIcon

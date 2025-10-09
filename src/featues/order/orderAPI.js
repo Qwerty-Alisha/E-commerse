@@ -22,23 +22,33 @@ export function createOrder(order) {
   });
 }
 
-export function fetchAllOrders(sort, pagination) {
- let queryString = '';
+export function fetchAllOrders({ sort, pagination }) { // Assuming Redux passes one object {sort, pagination}
+let queryString = '';
 
- for (let key in sort) {
-  queryString += `${key}=${sort[key]}&`;
+// 1. Build Query String
+for (let key in sort) {
+   queryString += `${key}=${sort[key]}&`;
 }
-  for (let key in pagination) {
-    queryString += `${key}=${pagination[key]}&`;
-  }
+for (let key in pagination) {
+  queryString += `${key}=${pagination[key]}&`;
+}
 
-  return new Promise(async (resolve) => {
-    //TODO: we will not hard-code server URL here
-    const response = await fetch(
-      'http://localhost:8080/orders?' + queryString
-    );
-    const data = await response.json();
-    const totalOrders = await response.headers.get('X-Total-Count');
-    resolve({ data: { orders: data, totalOrders: +totalOrders } });
-  });
+// Remove trailing '&' if it exists
+if (queryString.endsWith('&')) {
+  queryString = queryString.slice(0, -1);
+}
+
+return new Promise(async (resolve) => {
+  const response = await fetch(
+   'http://localhost:8080/orders?' + queryString
+  );
+
+ // CRITICAL FIX: response.headers.get() is synchronous, remove 'await'
+  const totalOrders = response.headers.get('X-Total-Count');
+  
+  const data = await response.json();
+
+  // Ensure totalOrders defaults to 0 if header is missing/null (due to CORS/server config)
+  resolve({ data: { orders: data, totalOrders: +(totalOrders || 0) } });
+});
 }

@@ -7,7 +7,7 @@ import {
   updateCartAsync,
 } from './cartSlice';
 import { Link } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+// Removed: import { Navigate } from 'react-router-dom'; // No longer needed
 import { discountedPrice } from '../../app/constants';
 import { Grid } from 'react-loader-spinner';
 import Modal from '../common/Modal';
@@ -17,6 +17,7 @@ export default function Cart() {
   const items = useSelector(selectItems);
   const status = useSelector(selectCartStatus);
   const [openModal, setOpenModal] = useState(null);
+
   const totalAmount = items.reduce(
     (amount, item) => discountedPrice(item.product) * item.quantity + amount,
     0
@@ -24,17 +25,40 @@ export default function Cart() {
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
   const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({id:item.id, quantity: +e.target.value }));
+    dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
   };
 
-  const handleRemove =(e, id)=>{
-    dispatch(deleteItemFromCartAsync(id))
+  const handleRemove = (e, id) => {
+    dispatch(deleteItemFromCartAsync(id));
+  };
+
+  // --- START: FIX FOR EMPTY CART ---
+  // If the cart is empty, return a custom component instead of the full cart view
+  if (items.length === 0) {
+    return (
+      <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+        <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
+          Your Cart is Empty 🛒
+        </h1>
+        <p className="mt-4 text-lg text-gray-500">
+          Looks like you haven't added anything to your cart yet.
+        </p>
+        <div className="mt-6">
+          <Link
+            to="/"
+            className="text-base font-medium text-indigo-600 hover:text-indigo-500"
+          >
+            Start Shopping <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </div>
+      </div>
+    );
   }
+  // --- END: FIX FOR EMPTY CART ---
 
   return (
     <>
-      {!items.length && <Navigate to='/' replace={true}></Navigate>}
-
+      {/* The original <Navigate> component has been removed as it's now handled by the early return */}
       <div>
         <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
@@ -59,7 +83,11 @@ export default function Cart() {
                   <li key={item.id} className="flex py-6">
                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                       <img
-                        src={item.product.thumbnail? item.product.thumbnail : item.product.image}
+                        src={
+                          item.product.thumbnail
+                            ? item.product.thumbnail
+                            : item.product.image
+                        }
                         alt={item.product.title}
                         className="h-full w-full object-cover object-center"
                       />
@@ -85,7 +113,10 @@ export default function Cart() {
                           >
                             Qty
                           </label>
-                          <select onChange={(e) => handleQuantity(e, item)} value={item.quantity}>
+                          <select
+                            onChange={(e) => handleQuantity(e, item)}
+                            value={item.quantity}
+                          >
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -101,11 +132,12 @@ export default function Cart() {
                             dangerOption="Delete"
                             cancelOption="Cancel"
                             dangerAction={(e) => handleRemove(e, item.id)}
-                            cancelAction={()=>setOpenModal(null)}
+                            cancelAction={() => setOpenModal(null)}
                             showModal={openModal === item.id}
                           ></Modal>
+                          {/* Corrected: This now opens the modal for confirmation */}
                           <button
-                            onClick={e=>handleRemove(item.id)}
+                            onClick={() => setOpenModal(item.id)} 
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
                           >
