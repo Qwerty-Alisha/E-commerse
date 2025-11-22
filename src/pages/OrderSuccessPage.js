@@ -7,12 +7,11 @@ import { resetOrder, selectCurrentOrder } from "../featues/order/orderSlice";
 
 function OrderSuccessPage() {
   const dispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
   const currentOrder = useSelector(selectCurrentOrder);
 
   useEffect(() => {
     // ✅ Reset cart immediately
-    dispatch(resetCartAsync(user.id));
+    dispatch(resetCartAsync());
 
     // ✅ Delay resetting currentOrder to allow the page to show first
     const timer = setTimeout(() => {
@@ -21,7 +20,7 @@ function OrderSuccessPage() {
 
     // Cleanup timeout on unmount
     return () => clearTimeout(timer);
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   // If order not found, redirect
   if (!currentOrder?.serialNumber) {

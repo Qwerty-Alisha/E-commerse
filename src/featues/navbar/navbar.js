@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectItems } from '../cart/cartSlice';
 import { selectLoggedInUser } from '../auth/authSlice';
+import { selectUserInfo } from '../user/userSlice';
 
 
 
@@ -37,10 +38,11 @@ function classNames(...classes) {
 }
 function NavBar({ children }) {
   const items = useSelector(selectItems);
-  const userRole = useSelector(selectLoggedInUser);
+  const userRole = useSelector(selectUserInfo);
+  console.log("NavBar UserInfo:", userRole);
   return (
     <>
-      <div className="min-h-full">
+      {<div className="min-h-full">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
@@ -213,7 +215,7 @@ function NavBar({ children }) {
             {children}
           </div>
         </main>
-      </div>
+      </div>}
     </>
   );
 }
