@@ -38,8 +38,8 @@ function classNames(...classes) {
 }
 function NavBar({ children }) {
   const items = useSelector(selectItems);
-  const userRole = useSelector(selectUserInfo);
-  console.log("NavBar UserInfo:", userRole);
+  const userInfo = useSelector(selectUserInfo);
+  console.log("NavBar UserInfo:", userInfo);
   return (
     <>
       {<div className="min-h-full">
@@ -61,7 +61,7 @@ function NavBar({ children }) {
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => {
-                          if (item.admin && user && userRole && userRole.role === 'admin') {
+                          if (item.admin && user && userInfo && userInfo.role === 'admin') {
                             return (
                               <Link
                                 key={item.name}
