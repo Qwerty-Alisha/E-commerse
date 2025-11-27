@@ -9,11 +9,14 @@ export default function UserOrders() {
   const dispatch = useDispatch();
   const status = useSelector(selectUserInfoStatus);
   const orders = useSelector(selectUserOrders);
-
+  const userInfo=useSelector(selectUserInfo)
   useEffect(() => {
     dispatch(fetchLoggedInUserOrderAsync());
   }, [dispatch]);
 
+  if (!userInfo) {
+    return <div className="p-10 text-center text-xl">Loading Profile...</div>;
+  }
 
   return (
     <div>

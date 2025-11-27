@@ -30,7 +30,7 @@ const navigation = [
 ];
 const userNavigation = [
   { name: 'My Profile', link: '/profile' },
-  { name: 'My Orders', link: '/orders' },
+  { name: 'My Orders', link: '/my-orders' },
   { name: 'Sign out', link: '/logout' },
 ];
 function classNames(...classes) {
@@ -61,7 +61,9 @@ function NavBar({ children }) {
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => {
-                          if (item.admin && user && userInfo && userInfo.role === 'admin') {
+                          if (item.admin && (!userInfo || userInfo.role !== 'admin')) {
+                            return null;
+                          } {
                             return (
                               <Link
                                 key={item.name}
@@ -102,7 +104,7 @@ function NavBar({ children }) {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-                      <Link to="/cart">
+                      <Link to="/my-cart">
                         <button
                           type="button"
                           className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"

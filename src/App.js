@@ -1,7 +1,7 @@
 import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectLoggedInUser } from './featues/auth/authSlice';
+import { checkAuthAsync, selectLoggedInUser, selectUserChecked } from './featues/auth/authSlice';
 import UserProfilePage from './pages/UserProfilePage';
 import { fetchLoggedInUserAsync } from './featues/user/userSlice';
 import AdminOrdersPage from './pages/AdminOrdersPage';
@@ -54,9 +54,13 @@ const router = createBrowserRouter([
     ),
   },
   {
-  path: "/cart",
-  element: (<Protected><CartPage></CartPage></Protected>),
-},
+    path: '/my-cart', 
+    element: (
+      <Protected>
+        <CartPage></CartPage>
+      </Protected>
+    ),
+  },
   {
     path: "/Login",
     element: ( <LoginPage></LoginPage>),
@@ -112,7 +116,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/orders',
+    path: '/my-orders',
     element: (
       <Protected>
         <UserOrdersPage></UserOrdersPage>{' '}
@@ -147,6 +151,12 @@ function App() {
 
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser);
+  const userChecked = useSelector(selectUserChecked);
+
+
+  useEffect(()=>{
+    dispatch(checkAuthAsync())
+  },[dispatch])
 
   useEffect(()=>{
     if(user){
@@ -159,9 +169,9 @@ function App() {
   return (
     <>
       <div className="App">
-        <Provider template={AlertTemplate} {...options}>
+        { userChecked &&<Provider template={AlertTemplate} {...options}>
           <RouterProvider router={router} />
-        </Provider>
+        </Provider>}
         {/* Link must be inside the Provider */}
       </div>
     </>
