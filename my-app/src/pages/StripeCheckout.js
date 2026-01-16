@@ -106,7 +106,7 @@ export default function StripeCheckout({ totalAmount, handleOrderSuccess }) {
   useEffect(() => {
     // Only fetch if totalAmount is valid to avoid backend errors
     if (totalAmount > 0) {
-      fetch("/create-payment-intent", {
+      fetch("https://shopease-api.vercel.app/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ totalAmount: totalAmount }),
