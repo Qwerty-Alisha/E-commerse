@@ -3,6 +3,7 @@ console.log("DB URL Check:", process.env.MONGODB_URL ? "Loaded" : "NOT LOADED");
 console.log("JWT Key Check:", process.env.JWT_SECRET_KEY ? "Loaded" : "NOT LOADED");
 const express = require('express');
 const server = express();
+server.set('trust proxy', 1);
 const mongoose = require('mongoose');
 const cors = require('cors');
 const session = require('express-session');
@@ -68,9 +69,10 @@ server.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: false, // Set to true only if using HTTPS
+            secure: true,      // ✅ Change to true for Production (HTTPS)
             httpOnly: true,
-            maxAge: 3600000
+            maxAge: 3600000,
+            sameSite: 'none',  // ✅ Add this for cross-domain cookies
         }
     })
 );
@@ -176,7 +178,7 @@ async function main() {
     await mongoose.connect(process.env.MONGODB_URL);
     console.log('database connected');
 }
-
-server.listen(8080, () => {
-    console.log(process.env.PORT);
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+    console.log(`server started on port ${PORT}`);
 });
