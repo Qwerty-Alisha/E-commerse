@@ -63,19 +63,16 @@ server.post('/webhook', express.raw({ type: 'application/json' }), (request, res
 // 2. MIDDLEWARES
 server.use(express.static(path.resolve(__dirname, 'build')));
 server.use(cookieParser());
-server.use(
-    session({
-        secret: process.env.SESSION_KEY,
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            secure: true,      // ✅ Change to true for Production (HTTPS)
-            httpOnly: true,
-            maxAge: 3600000,
-            sameSite: 'none',  // ✅ Add this for cross-domain cookies
-        }
-    })
-);
+server.use(session({
+    secret: process.env.SESSION_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: true,      // ✅ REQUIRED for production HTTPS
+        httpOnly: true,
+        sameSite: 'none',  // ✅ REQUIRED for cross-domain cookies
+    }
+}));
 server.use(passport.authenticate('session'));
 server.use(
     cors({
