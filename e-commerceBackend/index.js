@@ -39,9 +39,6 @@ server.use(cors({
     exposedHeaders: ['X-Total-Count'],
 }));
 
-// Fixed wildcard syntax for the preflight crash
-server.options('(.*)', cors()); 
-
 // 4. WEBHOOK (Must stay BEFORE express.json())
 const endpointSecret = process.env.ENDPOINT_SECRET;
 server.post('/webhook', express.raw({ type: 'application/json' }), (request, response) => {
