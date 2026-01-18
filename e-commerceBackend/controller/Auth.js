@@ -43,17 +43,13 @@ exports.createUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-  // ✅ FIX: Generate Token here explicitly
   const user = req.user;
   const token = jwt.sign(sanitizeUser(user), process.env.JWT_SECRET_KEY);
 
   res
-    .cookie('jwt', token, {
-      expires: new Date(Date.now() + 3600000),
-      httpOnly: true,
-    })
+    .cookie('jwt', token, cookieOptions) // ✅ Use the 'cookieOptions' variable you created
     .status(201)
-    .json({ id: user.id, role: user.role }); // Send user info, not just token string
+    .json({ id: user.id, role: user.role });
 };
 
 exports.checkAuth = async (req, res) => {

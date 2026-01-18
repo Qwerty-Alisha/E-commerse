@@ -17,7 +17,14 @@ const cookieParser = require('cookie-parser');
 const path = require('path'); 
 const { User } = require('./model/User');
 const { isAuth, sanitizeUser, cookieExtractor } = require('./services/common');
+server.use(cors({
+    origin: process.env.CLIENT_URL, // Ensure this is exactly https://shopease-bay.vercel.app
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Explicitly allow OPTIONS
+    exposedHeaders: ['X-Total-Count'],
+}));
 
+server.options('*', cors());
 // Routers
 const productsRouter = require('./routes/Products');
 const categoriesRouter = require('./routes/Categories');
@@ -74,13 +81,6 @@ server.use(session({
     }
 }));
 server.use(passport.authenticate('session'));
-server.use(
-    cors({
-        origin:process.env.CLIENT_URL,
-        credentials: true,
-        exposedHeaders: ['X-Total-Count'],
-    })
-);
 server.use(express.json()); // To parse req.body for standard routes
 
 // 3. PAYMENT INTENT ROUTE
