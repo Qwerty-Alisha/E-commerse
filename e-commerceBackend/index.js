@@ -9,7 +9,6 @@ const LocalStrategy = require('passport-local').Strategy;
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
 const cookieParser = require('cookie-parser');
 const path = require('path'); 
 
@@ -25,19 +24,19 @@ const authRouter = require('./routes/Auth');
 const cartRouter = require('./routes/Cart');
 const ordersRouter = require('./routes/Order');
 
-// 1. TRUST PROXY & CORS (Must be at the very top)
+// 1. TRUST PROXY & CORS
 server.set('trust proxy', 1);
 server.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL, // Must be https://shopease-bay.vercel.app in Vercel settings
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     exposedHeaders: ['X-Total-Count'],
 }));
 
-// ✅ FIX 1: Removed '(.*)' which was causing the PathError crash
-server.options('*', cors()); 
+// ✅ FIX: Express 5.1.0 wildcard syntax for Preflight
+server.options('/:path*', cors()); 
 
-// 2. STRIPE WEBHOOK (Must stay BEFORE express.json())
+// 2. STRIPE WEBHOOK
 const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
 const endpointSecret = process.env.ENDPOINT_SECRET;
 
@@ -57,9 +56,10 @@ server.post('/webhook', express.raw({ type: 'application/json' }), (request, res
 });
 
 // 3. STANDARD MIDDLEWARES
-server.use(express.static(path.resolve(__dirname, 'build')));
 server.use(cookieParser());
 server.use(express.json()); 
+// Only uncomment if the 'build' folder exists in your backend deployment
+// server.use(express.static(path.resolve(__dirname, 'build')));
 
 // 4. SESSION INITIALIZATION
 server.use(session({
@@ -73,8 +73,6 @@ server.use(session({
     }
 }));
 
-// ✅ FIX 2: Correct Passport Initialization Order
-// This MUST happen before any routes are defined to prevent the 'logIn' of undefined error
 server.use(passport.initialize());
 server.use(passport.session());
 
@@ -115,7 +113,7 @@ passport.deserializeUser(function (user, cb) {
     process.nextTick(() => cb(null, user));
 });
 
-// 7. API ROUTES (Now safe to use because Passport is initialized)
+// 7. API ROUTES
 server.use('/products', productsRouter.router);
 server.use('/categories', isAuth(), categoriesRouter.router);
 server.use('/brands', isAuth(), brandsRouter.router);
@@ -124,19 +122,31 @@ server.use('/auth', authRouter.router);
 server.use('/cart', isAuth(), cartRouter.router);
 server.use('/orders', isAuth(), ordersRouter.router);
 
-// 8. CATCH-ALL FOR REACT ROUTER
-server.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
-);
+// 8. CATCH-ALL (Express 5.1.0 Compatibility)
+server.get('/:path*', (req, res) => {
+    // Check if the build/index.html exists, else return a status
+    const buildPath = path.resolve(__dirname, 'build', 'index.html');
+    res.sendFile(buildPath, (err) => {
+        if (err) {
+            res.status(200).json({ status: "Shopease API is Live" });
+        }
+    });
+});
 
 // 9. DATABASE & SERVER START
-async function main() {
-    await mongoose.connect(process.env.MONGODB_URL);
-    console.log('database connected');
-}
-main().catch((err) => console.log(err));
-
 const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
-    console.log(`server started on port ${PORT}`);
-});
+
+async function main() {
+    try {
+        await mongoose.connect(process.env.MONGODB_URL);
+        console.log('Database connected');
+        
+        server.listen(PORT, () => {
+            console.log(`Server started on port ${PORT}`);
+        });
+    } catch (err) {
+        console.error("Database connection error:", err);
+    }
+}
+
+main();
