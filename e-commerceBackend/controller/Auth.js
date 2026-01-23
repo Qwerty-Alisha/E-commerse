@@ -1,6 +1,7 @@
 const { User } = require('../model/User');
 const crypto = require('crypto');
 const { sanitizeUser } = require('../services/common');
+const SECRET_KEY = 'SECRET_KEY';
 const jwt = require('jsonwebtoken');
 
 const cookieOptions = {
@@ -28,7 +29,7 @@ exports.createUser = async (req, res) => {
           if (err) {
             res.status(400).json(err);
           } else {
-            const token = jwt.sign(sanitizeUser(doc), process.env.JWT_SECRET_KEY);
+            const token = jwt.sign(sanitizeUser(doc), SECRET_KEY);
             res
               .cookie('jwt', token, cookieOptions)
               .status(201)
@@ -43,13 +44,17 @@ exports.createUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
+  // ✅ FIX: Generate Token here explicitly
   const user = req.user;
-  const token = jwt.sign(sanitizeUser(user), process.env.JWT_SECRET_KEY);
+  const token = jwt.sign(sanitizeUser(user), SECRET_KEY);
 
   res
-    .cookie('jwt', token, cookieOptions) // ✅ Use the 'cookieOptions' variable you created
+    .cookie('jwt', token, {
+      expires: new Date(Date.now() + 3600000),
+      httpOnly: true,
+    })
     .status(201)
-    .json({ id: user.id, role: user.role });
+    .json({ id: user.id, role: user.role }); // Send user info, not just token string
 };
 
 exports.checkAuth = async (req, res) => {
@@ -67,4 +72,4 @@ exports.logout = async (req, res) => {
     })
     .status(200)
     .json({ message: 'Logout successful' });
-};
+}
