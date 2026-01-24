@@ -78,7 +78,7 @@ server.use(
 server.use(passport.authenticate('session'));
 server.use(
     cors({
-        origin: 'http://localhost:3000',
+        origin: 'https://shopease-bay.vercel.app',
         credentials: true,
         exposedHeaders: ['X-Total-Count'],
     })
