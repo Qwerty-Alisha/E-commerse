@@ -4,13 +4,6 @@ const { sanitizeUser } = require('../services/common');
 const SECRET_KEY = 'SECRET_KEY';
 const jwt = require('jsonwebtoken');
 
-const cookieOptions = {
-  expires: new Date(Date.now() + 3600000),
-  httpOnly: true,
-  secure: true,      // ✅ REQUIRED for Vercel/HTTPS
-  sameSite: 'none',  // ✅ REQUIRED for cross-domain
-};
-
 exports.createUser = async (req, res) => {
   try {
      const salt = crypto.randomBytes(16);
@@ -31,7 +24,10 @@ exports.createUser = async (req, res) => {
           } else {
             const token = jwt.sign(sanitizeUser(doc), SECRET_KEY);
             res
-              .cookie('jwt', token, cookieOptions)
+              .cookie('jwt', token, {
+                expires: new Date(Date.now() + 3600000),
+                httpOnly: true,
+              })
               .status(201)
               .json({id:doc.id, role:doc.role});
           }
@@ -63,13 +59,4 @@ exports.checkAuth = async (req, res) => {
   } else{
     res.sendStatus(401);
   }
-}
-exports.logout = async (req, res) => {
-  res
-    .cookie('jwt', null,{
-      ...cookieOptions,
-      expires: new Date(Date.now()), // Immediately expire
-    })
-    .status(200)
-    .json({ message: 'Logout successful' });
 }

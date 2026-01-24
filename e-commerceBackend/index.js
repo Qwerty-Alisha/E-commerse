@@ -3,7 +3,6 @@ console.log("DB URL Check:", process.env.MONGODB_URL ? "Loaded" : "NOT LOADED");
 console.log("JWT Key Check:", process.env.JWT_SECRET_KEY ? "Loaded" : "NOT LOADED");
 const express = require('express');
 const server = express();
-server.set('trust proxy', 1);
 const mongoose = require('mongoose');
 const cors = require('cors');
 const session = require('express-session');
@@ -29,6 +28,8 @@ const ordersRouter = require('./routes/Order');
 
 console.log(process.env)
 // JWT options
+
+
 const opts = {};
 opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = process.env.JWT_SECRET_KEY;
@@ -41,7 +42,6 @@ const endpointSecret = process.env.ENDPOINT_SECRET
 server.post('/webhook', express.raw({ type: 'application/json' }), (request, response) => {
     const sig = request.headers['stripe-signature'];
     let event;
-
     try {
         event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
     } catch (err) {
@@ -63,24 +63,27 @@ server.post('/webhook', express.raw({ type: 'application/json' }), (request, res
 // 2. MIDDLEWARES
 server.use(express.static(path.resolve(__dirname, 'build')));
 server.use(cookieParser());
-server.use(session({
-    secret: process.env.SESSION_KEY,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: true,      // ✅ REQUIRED for production HTTPS
-        httpOnly: true,
-        sameSite: 'none',  // ✅ REQUIRED for cross-domain cookies
-    }
-}));
+server.use(
+    session({
+        secret: process.env.SESSION_KEY,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            secure: false, // Set to true only if using HTTPS
+            httpOnly: true,
+            maxAge: 3600000
+        }
+    })
+);
 server.use(passport.authenticate('session'));
 server.use(
     cors({
-        origin:process.env.CLIENT_URL,
+        origin: 'http://localhost:3000',
         credentials: true,
         exposedHeaders: ['X-Total-Count'],
     })
 );
+
 server.use(express.json()); // To parse req.body for standard routes
 
 // 3. PAYMENT INTENT ROUTE
@@ -137,6 +140,7 @@ passport.use(
         } catch (err) {
             done(err);
         }
+
     })
 );
 
@@ -176,7 +180,6 @@ async function main() {
     console.log('database connected');
 }
 
-const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
-    console.log(`server started on port ${PORT}`);
+server.listen(8080, () => {
+    console.log(process.env.PORT);
 });
