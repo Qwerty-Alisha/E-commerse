@@ -58,7 +58,7 @@ function CheckoutForm({ totalAmount, handleOrderSuccess }) {
       elements,
       confirmParams: {
         // This URL is used only if Stripe forces a redirect (like for 3D Secure bank checks)
-        return_url: `${window.location.origin}/order-success`,
+        return_url: "http://localhost:3000/order-success",
       },
       // IMPORTANT: 'if_required' prevents redirect for standard cards, 
       // allowing us to run handleOrderSuccess() immediately below.
@@ -106,7 +106,7 @@ export default function StripeCheckout({ totalAmount, handleOrderSuccess }) {
   useEffect(() => {
     // Only fetch if totalAmount is valid to avoid backend errors
     if (totalAmount > 0) {
-      fetch("https://shopease-api.vercel.app/create-payment-intent", {
+      fetch("http://localhost:8080/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ totalAmount: totalAmount }),

@@ -1,6 +1,6 @@
 export function createOrder(order) {
     return new Promise(async (resolve) => {
-      const response = await fetch('https://shopease-api.vercel.app/orders', {
+      const response = await fetch('http://localhost:8080/orders', {
         method: 'POST',
         body: JSON.stringify(order),
         headers: { 'content-type': 'application/json' },
@@ -13,7 +13,7 @@ export function createOrder(order) {
   }
   export function updateOrder(order) {
   return new Promise(async (resolve) => {
-    const response = await fetch('https://shopease-api.vercel.app/orders/'+order.id, {
+    const response = await fetch('http://localhost:8080/orders/'+order.id, {
       method: 'PATCH',
       body: JSON.stringify(order),
       headers: { 'content-type': 'application/json' },
@@ -42,7 +42,7 @@ if (queryString.endsWith('&')) {
 
 return new Promise(async (resolve) => {
   const response = await fetch(
-   '/orders?' + queryString
+   'http://localhost:8080/orders?' + queryString
   ,{credentials: 'include',});
 
  // CRITICAL FIX: response.headers.get() is synchronous, remove 'await'
