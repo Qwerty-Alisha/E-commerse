@@ -1,9 +1,9 @@
 import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkAuthAsync, selectLoggedInUser, selectUserChecked } from './featues/auth/authSlice';
+import { checkAuthAsync, selectLoggedInUser, selectUserChecked } from './features/auth/authSlice';
 import UserProfilePage from './pages/UserProfilePage';
-import { fetchLoggedInUserAsync } from './featues/user/userSlice';
+import { fetchLoggedInUserAsync } from './features/user/userSlice';
 import AdminOrdersPage from './pages/AdminOrdersPage';
 import './App.css';
 import Home from './pages/home.js'
@@ -11,15 +11,15 @@ import LoginPage from './pages/LoginPage.js'
 import SignupPage from './pages/SignupPage.js'
 import CartPage from './pages/cartPage.js'
 import Details from './pages/ProdDetaisPage.js'
-import Protected from './featues/auth/protected.js';
+import Protected from './features/auth/protected.js';
 import Checkout from './pages/checkout';
 import PageNotFound from './pages/404';
 import OrderSuccessPage from './pages/OrderSuccessPage';
 import UserOrdersPage from './pages/UserOrdersPage';
-import { fetchItemsByUserIdAsync } from './featues/cart/cartSlice';
-import Logout from './featues/auth/Logout';
+import { fetchItemsByUserIdAsync } from './features/cart/cartSlice';
+import Logout from './features/auth/Logout';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
-import ProtectedAdmin from './featues/auth/ProtectedAdmin';
+import ProtectedAdmin from './features/auth/ProtectedAdmin';
 import AdminHome from './pages/AdminHome';
 import AdminProductDetailPage from './pages/AdminProductDetailPage';
 import AdminProductFormPage from './pages/AdminProductFormPage';

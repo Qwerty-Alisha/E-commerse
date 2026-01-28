@@ -6,7 +6,7 @@ import { Radio, RadioGroup } from '@headlessui/react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductsbyIdAsync, selectProductbyId, selectProductListStatus } from './productSlice';
 import { useParams } from 'react-router-dom';
-import { addToCartAsync, selectItems } from './featues/cart/cartSlice';
+import { addToCartAsync, selectItems } from './features/cart/cartSlice';
 import { discountedPrice } from '../src/app/constants';
 import { useAlert } from 'react-alert';
 import { Grid } from 'react-loader-spinner';

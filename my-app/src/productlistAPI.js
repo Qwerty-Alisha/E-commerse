@@ -1,7 +1,7 @@
 export function fetchProductsbyId(id) {
   return new Promise(async (resolve) =>{
     //TODO: we will not hard-code server URL here
-    const response = await fetch(`http://localhost:8080/products/${id}`); 
+    const response = await fetch(`/api/products/${id}`); 
     const data = await response.json()
     resolve({data})
   }
@@ -10,7 +10,7 @@ export function fetchProductsbyId(id) {
 
 export function createProduct(product) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/products/', {
+    const response = await fetch('/api/products/', {
       method: 'POST',
       body: JSON.stringify(product),
       headers: { 'content-type': 'application/json' },
@@ -23,7 +23,7 @@ export function createProduct(product) {
 export function updateProduct(update) {
   return new Promise(async (resolve) => {
     const response = await fetch(
-      'http://localhost:8080/products/' + update.id,
+      '/products/' + update.id,
       {
         method: 'PATCH',
         body: JSON.stringify(update),
@@ -39,7 +39,7 @@ export function updateProduct(update) {
 export function fetchBrands() {
   return new Promise(async (resolve) =>{
     //TODO: we will not hard-code server URL here
-    const response = await fetch('http://localhost:8080/brands') 
+    const response = await fetch('/api/brands') 
     const data = await response.json()
     resolve({data})
   }
@@ -49,7 +49,7 @@ export function fetchBrands() {
 export function fetchCategories() {
   return new Promise(async (resolve) =>{
     //TODO: we will not hard-code server URL here
-    const response = await fetch('http://localhost:8080/categories') 
+    const response = await fetch('/api/categories') 
     const data = await response.json()
     resolve({data})
   }
@@ -82,7 +82,7 @@ export function fetchProductsByFilters(filter,sort,pagination, admin) {
 
   return new Promise(async (resolve) =>{
     //TODO: we will not hard-code server URL here
-    const response = await fetch('http://localhost:8080/products?'+queryString) 
+    const response = await fetch('/api/products?'+queryString) 
     const data = await response.json()
     const totalItems = await response.headers.get('X-Total-Count')
     resolve({data:{products:data,totalItems:+totalItems}})

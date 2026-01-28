@@ -4,16 +4,16 @@ import {
   deleteItemFromCartAsync,
   selectItems,
   updateCartAsync,
-} from '../featues/cart/cartSlice';
+} from '../features/cart/cartSlice';
 import { useForm } from 'react-hook-form';
-import { updateUserAsync } from '../featues/user/userSlice';
+import { updateUserAsync } from '../features/user/userSlice';
 import { useState, useEffect } from 'react';
 import {
   createOrderAsync,
   selectCurrentOrder,
   resetOrder
-} from '../featues/order/orderSlice';
-import { selectUserInfo } from '../featues/user/userSlice';
+} from '../features/order/orderSlice';
+import { selectUserInfo } from '../features/user/userSlice';
 import { discountedPrice } from '../app/constants';
 import StripeCheckout from './StripeCheckout';
 

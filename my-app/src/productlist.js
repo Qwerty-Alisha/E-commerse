@@ -27,7 +27,7 @@ import {
   Squares2X2Icon,
 } from '@heroicons/react/20/solid';
 import { ITEMS_PER_PAGE, discountedPrice } from './app/constants';
-import Pagination from '../src/featues/common/Pagination';
+import Pagination from '../src/features/common/Pagination';
 
 
 const sortOptions = [

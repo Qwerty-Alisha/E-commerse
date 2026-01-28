@@ -1,5 +1,5 @@
-import NavBar from '../featues/navbar/navbar';
-import UserProfile from '../featues/user/components/UserProfile';
+import NavBar from '../features/navbar/navbar';
+import UserProfile from '../features/user/components/UserProfile';
 
 function UserProfilePage() {
   return (

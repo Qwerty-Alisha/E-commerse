@@ -1,6 +1,6 @@
-import Navbar  from '../featues/navbar/navbar.js'
+import Navbar  from '../features/navbar/navbar.js'
 import ProdDetails from '../../src/product_details.js'
-import Footer from "../featues/common/Footer";
+import Footer from "../features/common/Footer";
 function Details(){
     return(
         <div>

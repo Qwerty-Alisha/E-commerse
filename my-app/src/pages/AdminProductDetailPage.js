@@ -1,5 +1,5 @@
-import AdminProductDetail from "../featues/admin/components/AdminProductDetail";
-import NavBar from "../featues/navbar/navbar";
+import AdminProductDetail from "../features/admin/components/AdminProductDetail";
+import NavBar from "../features/navbar/navbar";
 function AdminProductDetailPage() {
     return ( 
         <div>

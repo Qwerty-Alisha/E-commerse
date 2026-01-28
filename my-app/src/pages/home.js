@@ -1,6 +1,6 @@
-import Navbar  from '../featues/navbar/navbar.js'
+import Navbar  from '../features/navbar/navbar.js'
 import Example from '../../../my-app/src/productlist.js'
-import Footer from "../featues/common/Footer";
+import Footer from "../features/common/Footer";
 import { Link } from "react-router-dom";
 function Home(){
     return (

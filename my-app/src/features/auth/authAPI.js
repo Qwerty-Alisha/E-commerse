@@ -2,7 +2,7 @@
 
 export function createUser(userData) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/auth/signup', {
+    const response = await fetch('/api/auth/signup', {
       method: 'POST',
       body: JSON.stringify(userData),
       headers: { 'content-type': 'application/json' },
@@ -16,7 +16,7 @@ export function createUser(userData) {
 export function loginUser(loginInfo) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch('http://localhost:8080/auth/login', {
+      const response = await fetch('/api/auth/login', {
         method: 'POST',
         body: JSON.stringify(loginInfo),
         headers: { 'content-type': 'application/json' },
@@ -38,10 +38,10 @@ export function loginUser(loginInfo) {
 export function checkAuth() {
   return new Promise(async (resolve, reject) => {
     try {
-      // ❌ REMOVED: const response = await fetch('/auth/check');
+      // ❌ REMOVED: const response = await fetch('/api/auth/check');
       
       // ✅ FIX: Use absolute URL + credentials to ensure Cookie is sent to Port 8080
-      const response = await fetch('http://localhost:8080/auth/check', {
+      const response = await fetch('/api/auth/check', {
         credentials: 'include',
       });
       
@@ -62,7 +62,7 @@ export function signOut(userId) {
   return new Promise(async (resolve, reject) => {
     try {
       // ✅ FIX: Actually call the server to destroy the session/cookie
-      const response = await fetch('http://localhost:8080/auth/logout', {
+      const response = await fetch('/api/auth/logout', {
         credentials: 'include',
       });
       

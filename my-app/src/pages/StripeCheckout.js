@@ -106,7 +106,7 @@ export default function StripeCheckout({ totalAmount, handleOrderSuccess }) {
   useEffect(() => {
     // Only fetch if totalAmount is valid to avoid backend errors
     if (totalAmount > 0) {
-      fetch("http://localhost:8080/create-payment-intent", {
+      fetch("/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ totalAmount: totalAmount }),

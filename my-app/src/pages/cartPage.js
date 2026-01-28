@@ -1,4 +1,4 @@
-import Cart from '../featues/cart/cart.js'
+import Cart from '../features/cart/cart.js'
 function CartPage(){
     return(
         <Cart></Cart>
