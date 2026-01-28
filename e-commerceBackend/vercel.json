@@ -13,12 +13,16 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/(.*)",
       "dest": "e-commerceBackend/index.js"
     },
     {
+      "src": "/static/(.*)",
+      "dest": "/my-app/static/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "my-app/$1",
+      "dest": "/my-app/$1",
       "continue": true
     },
     {
