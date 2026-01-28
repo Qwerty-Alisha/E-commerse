@@ -57,9 +57,9 @@ server.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: true, // Vercel uses HTTPS by default
+            secure: true,      // Required for HTTPS on Vercel
+            sameSite: 'none',  // Required for cross-domain cookies
             httpOnly: true,
-            sameSite: 'none', // Needed for cross-site cookies in production
             maxAge: 3600000
         }
     })
@@ -70,7 +70,7 @@ server.use(passport.authenticate('session'));
 // FIX: Update CORS to allow your Vercel URL
 server.use(
     cors({
-        origin: [process.env.FRONTEND_URL, 'http://localhost:3000'], 
+        origin: 'https://shop-ease-ten-delta.vercel.app', // No trailing slash
         credentials: true,
         exposedHeaders: ['X-Total-Count'],
     })
@@ -78,13 +78,13 @@ server.use(
 server.use(express.json());
 
 // 3. API ROUTES (Prefix with  to separate from frontend routes)
-server.use('/products', productsRouter.router);
-server.use('/categories', isAuth(), categoriesRouter.router);
-server.use('/brands', isAuth(), brandsRouter.router);
-server.use('/users', isAuth(), usersRouter.router);
-server.use('/auth', authRouter.router);
-server.use('/cart', isAuth(), cartRouter.router);
-server.use('/orders', isAuth(), ordersRouter.router);
+server.use('/api/products', productsRouter.router);
+server.use('/api/categories', isAuth(), categoriesRouter.router);
+server.use('/api/brands', isAuth(), brandsRouter.router);
+server.use('/api/users', isAuth(), usersRouter.router);
+server.use('/api/auth', authRouter.router);
+server.use('/api/cart', isAuth(), cartRouter.router);
+server.use('/api/orders', isAuth(), ordersRouter.router);
 
 // 4. STRIPE ROUTE
 server.post("/create-payment-intent", async (req, res) => {
@@ -104,7 +104,7 @@ server.post("/create-payment-intent", async (req, res) => {
 
 // 5. CATCH-ALL FOR REACT ROUTER
 // This ensures that when you refresh the page on Vercel, it doesn't 404
-server.get('*', (req, res) =>
+server.get((req, res) =>
     res.sendFile(path.resolve(__dirname, '..', 'my-app', 'build', 'index.html'))
 );
 
