@@ -77,17 +77,17 @@ server.use(
 );
 server.use(express.json());
 
-// 3. API ROUTES (Prefix with /api to separate from frontend routes)
-server.use('/api/products', productsRouter.router);
-server.use('/api/categories', isAuth(), categoriesRouter.router);
-server.use('/api/brands', isAuth(), brandsRouter.router);
-server.use('/api/users', isAuth(), usersRouter.router);
-server.use('/api/auth', authRouter.router);
-server.use('/api/cart', isAuth(), cartRouter.router);
-server.use('/api/orders', isAuth(), ordersRouter.router);
+// 3. API ROUTES (Prefix with  to separate from frontend routes)
+server.use('/products', productsRouter.router);
+server.use('/categories', isAuth(), categoriesRouter.router);
+server.use('/brands', isAuth(), brandsRouter.router);
+server.use('/users', isAuth(), usersRouter.router);
+server.use('/auth', authRouter.router);
+server.use('/cart', isAuth(), cartRouter.router);
+server.use('/orders', isAuth(), ordersRouter.router);
 
 // 4. STRIPE ROUTE
-server.post("/api/create-payment-intent", async (req, res) => {
+server.post("/create-payment-intent", async (req, res) => {
     try {
         const { totalAmount, orderId } = req.body;
         const paymentIntent = await stripe.paymentIntents.create({
