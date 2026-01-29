@@ -1,6 +1,7 @@
+import { API_URL } from "../../app/constants";
 export function createOrder(order) {
     return new Promise(async (resolve) => {
-      const response = await fetch('/api/orders', {
+      const response = await fetch(`${API_URL}/api/orders`, {
         method: 'POST',
         body: JSON.stringify(order),
         headers: { 'content-type': 'application/json' },
@@ -13,7 +14,7 @@ export function createOrder(order) {
   }
   export function updateOrder(order) {
   return new Promise(async (resolve) => {
-    const response = await fetch('/api/orders/'+order.id, {
+    const response = await fetch(`${API_URL}/api/orders/`+order.id, {
       method: 'PATCH',
       body: JSON.stringify(order),
       headers: { 'content-type': 'application/json' },

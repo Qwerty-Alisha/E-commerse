@@ -1,6 +1,7 @@
+import { API_URL } from "../../app/constants";
 export function fetchLoggedInUserOrders() {
   return new Promise(async (resolve) => {
-    const response = await fetch('/api/orders/own/', {
+    const response = await fetch(`${API_URL}/api/orders/own/`, {
       credentials: 'include', // ✅ Essential for "own" routes
     });
     const data = await response.json();
@@ -10,7 +11,7 @@ export function fetchLoggedInUserOrders() {
 
 export function fetchLoggedInUser() {
   return new Promise(async (resolve) => {
-    const response = await fetch('/api/users/own/', {
+    const response = await fetch(`${API_URL}/api/users/own/`, {
       credentials: 'include', // ✅ Essential for "own" routes
     });
     const data = await response.json();
@@ -20,7 +21,7 @@ export function fetchLoggedInUser() {
 
 export function updateUser(update) {
   return new Promise(async (resolve) => {
-    const response = await fetch('/api/users/' + update.id, {
+    const response = await fetch(`${API_URL}/api/users/` + update.id, {
       method: 'PATCH',
       body: JSON.stringify(update),
       headers: { 'content-type': 'application/json' },

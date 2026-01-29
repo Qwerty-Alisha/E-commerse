@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
-
+import { API_URL } from "../app/constants";
 // ✅ 1. Put your Stripe Publishable Key here (starts with pk_test_)
 const stripePromise = loadStripe("pk_test_51SYBX1FZuc8ZSFzfzoFanZC15h5SZUhVM0wOcrooBSOwZnKJSfuvvTo19u6MmuljKHuld6PuAsrPFJpFlcMbNNCx00Id5xr9tD");
 
@@ -106,7 +106,7 @@ export default function StripeCheckout({ totalAmount, handleOrderSuccess }) {
   useEffect(() => {
     // Only fetch if totalAmount is valid to avoid backend errors
     if (totalAmount > 0) {
-      fetch("/create-payment-intent", {
+      fetch(`${API_URL}/create-payment-intent`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ totalAmount: totalAmount }),

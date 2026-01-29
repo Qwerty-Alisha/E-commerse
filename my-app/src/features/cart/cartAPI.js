@@ -1,6 +1,7 @@
+import { API_URL } from "../../app/constants";
 export function addToCart(item) {
     return new Promise(async (resolve) => {
-      const response = await fetch('/api/cart', {
+      const response = await fetch(`${API_URL}/api/cart`, {
         method: 'POST',
         body: JSON.stringify(item),
         headers: { 'content-type': 'application/json' },
@@ -15,7 +16,7 @@ export function addToCart(item) {
   export function fetchItemsByUserId() {
     return new Promise(async (resolve) =>{
       //TODO: we will not hard-code server URL here
-      const response = await fetch('/api/cart',{credentials: 'include',}) 
+      const response = await fetch(`${API_URL}/api/cart`,{credentials: 'include',}) 
       const data = await response.json()
       resolve({data})
     }
@@ -24,7 +25,7 @@ export function addToCart(item) {
   
   export function updateCart(update) {
     return new Promise(async (resolve) => {
-      const response = await fetch('/api/cart/'+update.id, {
+      const response = await fetch(`${API_URL}/api/cart/`+update.id, {
         method: 'PATCH',
         body: JSON.stringify(update),
         headers: { 'content-type': 'application/json' },
@@ -39,7 +40,7 @@ export function addToCart(item) {
   
   export function deleteItemFromCart(itemId) {
     return new Promise(async (resolve) => {
-      const response = await fetch('/api/cart/'+itemId, {
+      const response = await fetch(`${API_URL}/api/cart/`+itemId, {
         method: 'DELETE',
         headers: { 'content-type': 'application/json' },
         credentials: 'include',
