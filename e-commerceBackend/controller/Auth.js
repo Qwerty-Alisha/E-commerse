@@ -1,7 +1,7 @@
 const { User } = require('../model/User');
 const crypto = require('crypto');
 const { sanitizeUser } = require('../services/common');
-const SECRET_KEY = 'SECRET_KEY';
+const SECRET_KEY = process.env.JWT_SECRET_KEY;;
 const jwt = require('jsonwebtoken');
 
 exports.createUser = async (req, res) => {
@@ -27,6 +27,8 @@ exports.createUser = async (req, res) => {
               .cookie('jwt', token, {
                 expires: new Date(Date.now() + 3600000),
                 httpOnly: true,
+                secure: true,      // REQUIRED: For HTTPS on Vercel
+                sameSite: 'none',
               })
               .status(201)
               .json({id:doc.id, role:doc.role});

@@ -48,8 +48,8 @@ server.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
-            secure: true, // Required for Vercel HTTPS
-            sameSite: 'none', 
+            secure: true,      // MUST be true for Vercel (HTTPS)
+            sameSite: 'none',
             httpOnly: true,
             maxAge: 3600000
         }
