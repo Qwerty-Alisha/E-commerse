@@ -58,7 +58,7 @@ function CheckoutForm({ totalAmount, handleOrderSuccess }) {
       elements,
       confirmParams: {
         // This URL is used only if Stripe forces a redirect (like for 3D Secure bank checks)
-        return_url: "http://localhost:3000/order-success",
+        return_url: `${window.location.origin}/order-success`,
       },
       // IMPORTANT: 'if_required' prevents redirect for standard cards, 
       // allowing us to run handleOrderSuccess() immediately below.
