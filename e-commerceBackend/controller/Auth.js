@@ -50,6 +50,8 @@ exports.loginUser = async (req, res) => {
     .cookie('jwt', token, {
       expires: new Date(Date.now() + 3600000),
       httpOnly: true,
+      secure: true,      // REQUIRED: For HTTPS on Vercel
+      sameSite: 'none',
     })
     .status(201)
     .json({ id: user.id, role: user.role }); // Send user info, not just token string
