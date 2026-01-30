@@ -119,20 +119,29 @@ server.use('/api/orders', isAuth(), ordersRouter.router);
 server.post("/api/create-payment-intent", async (req, res) => {
     try {
         const { totalAmount, orderId } = req.body;
+        
+        // Log to Vercel console to see if totalAmount is arriving
+        console.log("Creating intent for Amount:", totalAmount); 
+
+        if (!process.env.STRIPE_SERVER_KEY) {
+            throw new Error("STRIPE_SERVER_KEY is missing from environment variables");
+        }
+
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: Math.round(totalAmount * 100),
+            amount: Math.round(totalAmount * 100), // Stripe expects cents
             currency: "usd",
             automatic_payment_methods: { enabled: true },
             metadata: { orderId }
         });
-        res.send({ clientSecret: paymentIntent.client_secret });
-    } catch (error) { res.status(500).json({ error: error.message }); }
-});
 
-// 6. CATCH-ALL (Regex fix for SPA Routing)
-server.get((req, res) =>
-    res.sendFile(path.resolve(__dirname, 'build'))
-);
+        res.send({
+            clientSecret: paymentIntent.client_secret,
+        });
+    } catch (error) {
+        console.error("Stripe Error Details:", error.message); // This shows in Vercel Logs
+        res.status(500).json({ error: error.message }); // This shows in Browser Network tab
+    }
+});
 
 // 7. DATABASE & SERVER START
 main().catch((err) => console.log(err));
