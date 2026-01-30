@@ -43,7 +43,7 @@ if (queryString.endsWith('&')) {
 
 return new Promise(async (resolve) => {
   const response = await fetch(
-   '/orders?' + queryString
+   `${API_URL}/api/orders?` + queryString
   ,{credentials: 'include',});
 
  // CRITICAL FIX: response.headers.get() is synchronous, remove 'await'
