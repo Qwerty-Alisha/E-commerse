@@ -130,8 +130,8 @@ server.post("/api/create-payment-intent", async (req, res) => {
 });
 
 // 6. CATCH-ALL (Regex fix for SPA Routing)
-server.get(/^\/(?!api).*/, (req, res) =>
-    res.sendFile(path.resolve(__dirname, '..', 'my-app', 'build', 'index.html'))
+server.get((req, res) =>
+    res.sendFile(path.resolve(__dirname, 'build'))
 );
 
 // 7. DATABASE & SERVER START
