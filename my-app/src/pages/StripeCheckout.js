@@ -110,6 +110,7 @@ export default function StripeCheckout({ totalAmount, handleOrderSuccess }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ totalAmount: totalAmount }),
+        credentials: 'include',
       })
         .then((res) => {
           if (!res.ok) {
