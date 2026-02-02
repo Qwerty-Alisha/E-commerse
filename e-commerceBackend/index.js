@@ -29,15 +29,35 @@ const opts = {};
 opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = process.env.JWT_SECRET_KEY;
 
-// 1. WEBHOOK
+// Stripe Initialization
+const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
+
+// 1. WEBHOOK (Must stay BEFORE express.json() because it needs raw body)
 const endpointSecret = process.env.ENDPOINT_SECRET;
 server.post('/webhook', express.raw({ type: 'application/json' }), (request, response) => {
-    // ... (Your existing webhook logic is fine)
+    const sig = request.headers['stripe-signature'];
+    let event;
+
+    try {
+        event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    } catch (err) {
+        response.status(400).send(`Webhook Error: ${err.message}`);
+        return;
+    }
+
+    switch (event.type) {
+        case 'payment_intent.succeeded':
+            const paymentIntentSucceeded = event.data.object;
+            console.log("Payment Succeeded:", paymentIntentSucceeded.id);
+            break;
+        default:
+            console.log(`Unhandled event type ${event.type}`);
+    }
+    response.send();
 });
 
 // 2. MIDDLEWARES & PASSPORT INIT
-// FIX: Path to build folder must point correctly relative to this file
-server.use(express.static(path.resolve(__dirname, '..', 'my-app', 'build')));
+server.use(express.static(path.resolve(__dirname, 'build')));
 server.use(cookieParser());
 server.use(
     session({
@@ -46,7 +66,7 @@ server.use(
         saveUninitialized: false,
         cookie: {
             secure: true,      // MUST be true for Vercel (HTTPS)
-            sameSite: 'none',
+            sameSite: 'none',  // Required for cross-domain cookies
             httpOnly: true,
             maxAge: 3600000
         }
@@ -65,7 +85,7 @@ server.use(
 );
 server.use(express.json());
 
-// 3. PASSPORT STRATEGIES (Define these BEFORE routes)
+// 3. PASSPORT STRATEGIES (Defined BEFORE routes)
 passport.use(
     'local',
     new LocalStrategy({ usernameField: 'email' }, async function (email, password, done) {
@@ -104,7 +124,6 @@ passport.deserializeUser(function (user, cb) {
 
 // 4. API ROUTES
 server.use('/api/products', productsRouter.router);
-// FIX: Categories and Brands should be public to allow initial loading
 server.use('/api/categories', categoriesRouter.router); 
 server.use('/api/brands', brandsRouter.router);
 server.use('/api/users', isAuth(), usersRouter.router);
@@ -112,14 +131,10 @@ server.use('/api/auth', authRouter.router);
 server.use('/api/cart', isAuth(), cartRouter.router);
 server.use('/api/orders', isAuth(), ordersRouter.router);
 
-// 5. STRIPE / PAYMENT INTENT (Add /api prefix for consistency)
+// 5. STRIPE / PAYMENT INTENT
 server.post("/api/create-payment-intent", async (req, res) => {
     try {
-        const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
-
         const { totalAmount, orderId } = req.body;
-        
-        // Log to Vercel console to see if totalAmount is arriving
         console.log("Creating intent for Amount:", totalAmount); 
 
         if (!process.env.STRIPE_SERVER_KEY) {
@@ -137,19 +152,24 @@ server.post("/api/create-payment-intent", async (req, res) => {
             clientSecret: paymentIntent.client_secret,
         });
     } catch (error) {
-        console.error("Stripe Error Details:", error.message); // This shows in Vercel Logs
-        res.status(500).json({ error: error.message }); // This shows in Browser Network tab
+        console.error("Stripe Error Details:", error.message);
+        res.status(500).json({ error: error.message });
     }
 });
 
+// 6. CATCH-ALL FOR REACT ROUTER
+server.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+);
+
 // 7. DATABASE & SERVER START
 main().catch((err) => console.log(err));
+
 async function main() {
     await mongoose.connect(process.env.MONGODB_URL);
     console.log('database connected');
 }
 
-// Ensure it doesn't try to listen on a hardcoded port on Vercel
 if (process.env.NODE_ENV !== 'production') {
     server.listen(8080, () => {
         console.log('Server started on 8080');
