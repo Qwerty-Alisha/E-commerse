@@ -30,7 +30,7 @@ opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = process.env.JWT_SECRET_KEY;
 
 // Stripe Initialization
-const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
+// const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
 
 // 1. WEBHOOK
 const endpointSecret = process.env.ENDPOINT_SECRET;
@@ -134,27 +134,33 @@ server.use('/api/cart', isAuth(), cartRouter.router);
 server.use('/api/orders', isAuth(), ordersRouter.router);
 
 // 5. STRIPE / PAYMENT INTENT (Add /api prefix for consistency)
-// Inside your create-payment-intent route
 server.post("/api/create-payment-intent", async (req, res) => {
     try {
-        const { totalAmount } = req.body;
+        const { totalAmount, orderId } = req.body;
 
-        // Initialize INSIDE the route with a custom timeout
+        // Initialize with Telemetry DISABLED to prevent network hangs
         const stripeInstance = require("stripe")(process.env.STRIPE_SERVER_KEY, {
-            timeout: 20000, // 20 seconds
-            maxNetworkRetries: 3
+            timeout: 30000,           // 30 seconds (Max for Vercel Hobby)
+            maxNetworkRetries: 2,     // Reduce retries to fail faster and recover
+            telemetry: false          // <--- CRITICAL: Disable usage tracking
         });
+
+        if (!totalAmount || isNaN(totalAmount)) {
+            return res.status(400).json({ error: "Invalid total amount" });
+        }
 
         const paymentIntent = await stripeInstance.paymentIntents.create({
             amount: Math.round(totalAmount * 100),
             currency: "usd",
             automatic_payment_methods: { enabled: true },
+            metadata: { orderId }
         });
 
-        res.send({ clientSecret: paymentIntent.client_secret });
+        res.status(200).send({
+            clientSecret: paymentIntent.client_secret,
+        });
     } catch (error) {
-        // This will now show the REAL Stripe error in your Vercel logs
-        console.error("STRIPE ERROR:", error.message); 
+        console.error("STRIPE ERROR:", error.message);
         res.status(500).json({ error: error.message });
     }
 });
