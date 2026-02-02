@@ -134,33 +134,30 @@ server.use('/api/cart', isAuth(), cartRouter.router);
 server.use('/api/orders', isAuth(), ordersRouter.router);
 
 // 5. STRIPE / PAYMENT INTENT (Add /api prefix for consistency)
+// Inside your create-payment-intent route
 server.post("/api/create-payment-intent", async (req, res) => {
     try {
-        const { totalAmount, orderId } = req.body;
-        
-        // Log to Vercel console to see if totalAmount is arriving
-        console.log("Creating intent for Amount:", totalAmount); 
+        const { totalAmount } = req.body;
 
-        if (!process.env.STRIPE_SERVER_KEY) {
-            throw new Error("STRIPE_SERVER_KEY is missing from environment variables");
-        }
+        // Initialize INSIDE the route with a custom timeout
+        const stripeInstance = require("stripe")(process.env.STRIPE_SERVER_KEY, {
+            timeout: 20000, // 20 seconds
+            maxNetworkRetries: 3
+        });
 
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount: Math.round(totalAmount * 100), // Stripe expects cents
+        const paymentIntent = await stripeInstance.paymentIntents.create({
+            amount: Math.round(totalAmount * 100),
             currency: "usd",
             automatic_payment_methods: { enabled: true },
-            metadata: { orderId }
         });
 
-        res.send({
-            clientSecret: paymentIntent.client_secret,
-        });
+        res.send({ clientSecret: paymentIntent.client_secret });
     } catch (error) {
-        console.error("Stripe Error Details:", error.message); // This shows in Vercel Logs
-        res.status(500).json({ error: error.message }); // This shows in Browser Network tab
+        // This will now show the REAL Stripe error in your Vercel logs
+        console.error("STRIPE ERROR:", error.message); 
+        res.status(500).json({ error: error.message });
     }
 });
-
 // 7. DATABASE & SERVER START
 main().catch((err) => console.log(err));
 async function main() {
