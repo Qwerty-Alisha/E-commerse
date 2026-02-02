@@ -29,9 +29,6 @@ const opts = {};
 opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = process.env.JWT_SECRET_KEY;
 
-// Stripe Initialization
-const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
-
 // 1. WEBHOOK
 const endpointSecret = process.env.ENDPOINT_SECRET;
 server.post('/webhook', express.raw({ type: 'application/json' }), (request, response) => {
@@ -118,6 +115,8 @@ server.use('/api/orders', isAuth(), ordersRouter.router);
 // 5. STRIPE / PAYMENT INTENT (Add /api prefix for consistency)
 server.post("/api/create-payment-intent", async (req, res) => {
     try {
+        const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
+
         const { totalAmount, orderId } = req.body;
         
         // Log to Vercel console to see if totalAmount is arriving
