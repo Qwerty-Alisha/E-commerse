@@ -132,38 +132,61 @@ server.use('/api/users', isAuth(), usersRouter.router);
 server.use('/api/auth', authRouter.router);
 server.use('/api/cart', isAuth(), cartRouter.router);
 server.use('/api/orders', isAuth(), ordersRouter.router);
+server.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')));
 
 // 5. STRIPE / PAYMENT INTENT (Add /api prefix for consistency)
+const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
+
+
 server.post("/api/create-payment-intent", async (req, res) => {
-    try {
-        const { totalAmount, orderId } = req.body;
+  const { totalAmount, orderId } = req.body;
 
-        // Initialize with Telemetry DISABLED to prevent network hangs
-        const stripeInstance = require("stripe")(process.env.STRIPE_SERVER_KEY, {
-            timeout: 30000,           // 30 seconds (Max for Vercel Hobby)
-            maxNetworkRetries: 2,     // Reduce retries to fail faster and recover
-            telemetry: false          // <--- CRITICAL: Disable usage tracking
-        });
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: totalAmount*100, // for decimal compensation
+    currency: "inr",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+    metadata:{
+        orderId
+      }
+  });
 
-        if (!totalAmount || isNaN(totalAmount)) {
-            return res.status(400).json({ error: "Invalid total amount" });
-        }
-
-        const paymentIntent = await stripeInstance.paymentIntents.create({
-            amount: Math.round(totalAmount * 100),
-            currency: "usd",
-            automatic_payment_methods: { enabled: true },
-            metadata: { orderId }
-        });
-
-        res.status(200).send({
-            clientSecret: paymentIntent.client_secret,
-        });
-    } catch (error) {
-        console.error("STRIPE ERROR:", error.message);
-        res.status(500).json({ error: error.message });
-    }
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
 });
+// server.post("/api/create-payment-intent", async (req, res) => {
+//     try {
+//         const { totalAmount, orderId } = req.body;
+
+//         // Initialize with Telemetry DISABLED to prevent network hangs
+//         const stripeInstance = require("stripe")(process.env.STRIPE_SERVER_KEY, {
+//             timeout: 30000,           // 30 seconds (Max for Vercel Hobby)
+//             maxNetworkRetries: 2,     // Reduce retries to fail faster and recover
+//             telemetry: false          // <--- CRITICAL: Disable usage tracking
+//         });
+
+//         if (!totalAmount || isNaN(totalAmount)) {
+//             return res.status(400).json({ error: "Invalid total amount" });
+//         }
+
+//         const paymentIntent = await stripeInstance.paymentIntents.create({
+//             amount: Math.round(totalAmount * 100),
+//             currency: "usd",
+//             automatic_payment_methods: { enabled: true },
+//             metadata: { orderId }
+//         });
+
+//         res.status(200).send({
+//             clientSecret: paymentIntent.client_secret,
+//         });
+//     } catch (error) {
+//         console.error("STRIPE ERROR:", error.message);
+//         res.status(500).json({ error: error.message });
+//     }
+// });
 // 7. DATABASE & SERVER START
 main().catch((err) => console.log(err));
 async function main() {
