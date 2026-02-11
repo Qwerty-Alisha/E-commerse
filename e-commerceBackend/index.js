@@ -144,32 +144,10 @@ const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY,{
 
 
 server.post("/api/create-payment-intent", async (req, res) => {
-  try {
-    const { totalAmount, orderId } = req.body;
-
-    if (!totalAmount || isNaN(totalAmount)) {
-      return res.status(400).json({ error: "Invalid total amount" });
-    }
-
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(totalAmount * 100),
-      currency: "inr",
-      automatic_payment_methods: { enabled: true },
-      metadata: { orderId }
-    });
-
-    return res.status(200).json({
-      clientSecret: paymentIntent.client_secret,
-    });
-
-  } catch (error) {
-    console.error("STRIPE FULL ERROR:", error);
-    return res.status(500).json({
-      error: error.message || "Stripe failed"
-    });
-  }
+  return res.status(200).json({
+    clientSecret: "test_secret"
+  });
 });
-
 // server.post("/api/create-payment-intent", async (req, res) => {
 //     try {
 //         const { totalAmount, orderId } = req.body;
