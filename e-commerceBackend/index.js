@@ -135,28 +135,41 @@ server.use('/api/orders', isAuth(), ordersRouter.router);
 server.get(/.*/, (req, res) => res.sendFile(path.resolve('build', 'index.html')));
 
 // 5. STRIPE / PAYMENT INTENT (Add /api prefix for consistency)
-const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY,{
+    apiVersion: "2023-10-16",
+  timeout: 20000,          // 20 seconds max
+  maxNetworkRetries: 1,    // reduce retries
+  telemetry: false         // VERY IMPORTANT
+});
 
 
 server.post("/api/create-payment-intent", async (req, res) => {
-  const { totalAmount, orderId } = req.body;
+  try {
+    const { totalAmount, orderId } = req.body;
 
-  // Create a PaymentIntent with the order amount and currency
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: totalAmount*100, // for decimal compensation
-    currency: "inr",
-    automatic_payment_methods: {
-      enabled: true,
-    },
-    metadata:{
-        orderId
-      }
-  });
+    if (!totalAmount || isNaN(totalAmount)) {
+      return res.status(400).json({ error: "Invalid total amount" });
+    }
 
-  res.send({
-    clientSecret: paymentIntent.client_secret,
-  });
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Math.round(totalAmount * 100),
+      currency: "inr",
+      automatic_payment_methods: { enabled: true },
+      metadata: { orderId }
+    });
+
+    return res.status(200).json({
+      clientSecret: paymentIntent.client_secret,
+    });
+
+  } catch (error) {
+    console.error("STRIPE FULL ERROR:", error);
+    return res.status(500).json({
+      error: error.message || "Stripe failed"
+    });
+  }
 });
+
 // server.post("/api/create-payment-intent", async (req, res) => {
 //     try {
 //         const { totalAmount, orderId } = req.body;
