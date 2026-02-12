@@ -135,12 +135,7 @@ server.use('/api/orders', isAuth(), ordersRouter.router);
 server.get(/.*/, (req, res) => res.sendFile(path.resolve('build', 'index.html')));
 
 // 5. STRIPE / PAYMENT INTENT (Add /api prefix for consistency)
-const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY,{
-    apiVersion: "2023-10-16",
-  timeout: 20000,          // 20 seconds max
-  maxNetworkRetries: 1,    // reduce retries
-  telemetry: false         // VERY IMPORTANT
-});
+const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY)
 
 
 server.post("/api/create-payment-intent", async (req, res) => {
@@ -164,7 +159,7 @@ server.post("/api/create-payment-intent", async (req, res) => {
 });
 
         console.error("STRIPE ERROR:", error.message);
-DATABASE & SERVER START
+// DATABASE & SERVER START
 main().catch((err) => console.log(err));
 async function main() {
     await mongoose.connect(process.env.MONGODB_URL);
