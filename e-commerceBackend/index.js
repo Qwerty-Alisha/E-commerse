@@ -132,7 +132,7 @@ server.use('/api/users', isAuth(), usersRouter.router);
 server.use('/api/auth', authRouter.router);
 server.use('/api/cart', isAuth(), cartRouter.router);
 server.use('/api/orders', isAuth(), ordersRouter.router);
-server.get(/.*/, (req, res) => res.sendFile(path.resolve('build', 'index.html')));
+// server.get(/.*/, (req, res) => res.sendFile(path.resolve('build', 'index.html')));
 
 // 5. STRIPE / PAYMENT INTENT (Add /api prefix for consistency)
 const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY)
