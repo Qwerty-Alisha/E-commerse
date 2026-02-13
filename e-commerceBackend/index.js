@@ -158,3 +158,5 @@ if (process.env.NODE_ENV !== 'production') {
         console.log('Server started on 8080');
     });
 }
+
+module.exports=server;
