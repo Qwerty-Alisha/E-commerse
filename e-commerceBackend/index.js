@@ -30,7 +30,11 @@ opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = process.env.JWT_SECRET_KEY;
 
 // Stripe Initialization
-const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY, {
+  apiVersion: '2023-10-16', // Use a fixed stable version
+  maxNetworkRetries: 2,     // Default is 0; increasing helps with transient network issues
+  timeout: 10000,           // 10 seconds timeout for serverless cold starts
+});
 
 // 1. WEBHOOK
 const endpointSecret = process.env.ENDPOINT_SECRET;
@@ -120,25 +124,30 @@ server.post("/api/create-payment-intent", async (req, res) => {
     try {
         const { totalAmount, orderId } = req.body;
         
-        console.log("Creating intent for Amount:", totalAmount); 
+        // Validation: Stripe requires an integer in cents
+        const amount = Math.round(Number(totalAmount) * 100);
 
-        if (!process.env.STRIPE_SERVER_KEY) {
-            throw new Error("STRIPE_SERVER_KEY is missing from env");
+        if (!amount || amount <= 0) {
+            return res.status(400).json({ error: "Invalid amount received" });
         }
 
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: Math.round(totalAmount * 100), // In cents
+            amount: amount,
             currency: "usd",
             automatic_payment_methods: { enabled: true },
             metadata: { orderId }
         });
 
-        res.send({
-            clientSecret: paymentIntent.client_secret,
+        res.send({ clientSecret: paymentIntent.client_secret });
+
+    } catch (err) {
+        // Detailed logging for Vercel
+        console.error("STRIPE DIAGNOSTICS:", {
+            message: err.message,
+            type: err.type,
+            code: err.code
         });
-    } catch (error) {
-        console.error("Stripe Error Details:", error.message);
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: err.message });
     }
 });
 
