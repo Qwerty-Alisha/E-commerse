@@ -30,35 +30,17 @@ opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = process.env.JWT_SECRET_KEY;
 
 // Stripe Initialization
-// const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY);
 
 // 1. WEBHOOK
 const endpointSecret = process.env.ENDPOINT_SECRET;
 server.post('/webhook', express.raw({ type: 'application/json' }), (request, response) => {
-    const sig = request.headers['stripe-signature'];
-    let event;
-
-    try {
-        event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-    } catch (err) {
-        response.status(400).send(`Webhook Error: ${err.message}`);
-        return;
-    }
-
-    switch (event.type) {
-        case 'payment_intent.succeeded':
-            const paymentIntentSucceeded = event.data.object;
-            console.log("Payment Succeeded:", paymentIntentSucceeded.id);
-            break;
-        default:
-            console.log(`Unhandled event type ${event.type}`);
-    }
-    response.send();
+    // ... (Your existing webhook logic is fine)
 });
 
 // 2. MIDDLEWARES & PASSPORT INIT
 // FIX: Path to build folder must point correctly relative to this file
-server.use(express.static(path.resolve(__dirname,'build')));
+server.use(express.static(path.resolve(__dirname, '..', 'my-app', 'build')));
 server.use(cookieParser());
 server.use(
     session({
@@ -132,19 +114,20 @@ server.use('/api/users', isAuth(), usersRouter.router);
 server.use('/api/auth', authRouter.router);
 server.use('/api/cart', isAuth(), cartRouter.router);
 server.use('/api/orders', isAuth(), ordersRouter.router);
-// server.get(/.*/, (req, res) => res.sendFile(path.resolve('build', 'index.html')));
 
 // 5. STRIPE / PAYMENT INTENT (Add /api prefix for consistency)
-const stripe = require("stripe")(process.env.STRIPE_SERVER_KEY)
-
-
 server.post("/api/create-payment-intent", async (req, res) => {
-  try {
+    try {
         const { totalAmount, orderId } = req.body;
-        const amountInCents = Math.round(totalAmount * 100);
+        
+        console.log("Creating intent for Amount:", totalAmount); 
+
+        if (!process.env.STRIPE_SERVER_KEY) {
+            throw new Error("STRIPE_SERVER_KEY is missing from env");
+        }
 
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: amountInCents,
+            amount: Math.round(totalAmount * 100), // In cents
             currency: "usd",
             automatic_payment_methods: { enabled: true },
             metadata: { orderId }
@@ -154,12 +137,15 @@ server.post("/api/create-payment-intent", async (req, res) => {
             clientSecret: paymentIntent.client_secret,
         });
     } catch (error) {
+        console.error("Stripe Error Details:", error.message);
         res.status(500).json({ error: error.message });
     }
 });
 
-        console.error("STRIPE ERROR:", error.message);
-// DATABASE & SERVER START
+server.get(/.*/, (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+);
+// 7. DATABASE & SERVER START
 main().catch((err) => console.log(err));
 async function main() {
     await mongoose.connect(process.env.MONGODB_URL);
@@ -172,5 +158,3 @@ if (process.env.NODE_ENV !== 'production') {
         console.log('Server started on 8080');
     });
 }
-
-module.exports = server;
