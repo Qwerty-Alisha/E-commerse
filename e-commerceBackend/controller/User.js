@@ -1,7 +1,7 @@
 const { User } = require('../model/User');
 
 exports.fetchUserById = async (req, res) => {
-  // FIX: If the route is /own, use req.user.id (from Token). 
+  // FIX: If the route is /own, use req.user.id (from Token).
   // Otherwise use req.params.id (from URL)
   const { id } = req.user;
 
@@ -9,8 +9,13 @@ exports.fetchUserById = async (req, res) => {
 
   try {
     // We usually want to project fields (remove password/salt)
-    const user = await User.findById(id); 
-    res.status(200).json({id:user.id,addresses:user.addresses,email:user.email,role:user.role});
+    const user = await User.findById(id);
+    res.status(200).json({
+      id: user.id,
+      addresses: user.addresses,
+      email: user.email,
+      role: user.role,
+    });
   } catch (err) {
     res.status(400).json(err);
   }
